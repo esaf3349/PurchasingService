@@ -1,6 +1,8 @@
 ﻿using Application.Exceptions;
 using Domain.Common.Exceptions;
 using System.Net;
+using System.Text.Json;
+using WebApi.Common.Http;
 
 namespace WebApi.Middleware;
 
@@ -48,5 +50,11 @@ internal sealed class AppExceptionHandlingMiddleware
                 response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 break;
         }
+
+        response.ContentType = "application/json";
+
+        var responseBody = JsonSerializer.Serialize(new JsonResponse<object>(exception.Message));
+
+        await response.WriteAsync(responseBody, cancellationToken);
     }
 }

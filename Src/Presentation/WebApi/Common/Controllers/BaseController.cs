@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using WebApi.Common.Http;
 
 namespace WebApi.Common.Controllers;
 
@@ -26,4 +27,6 @@ internal abstract class BaseController : Controller
 
         await next();
     }
+
+    private protected ActionResult<JsonResponse<TData>> OkJsonReponse<TData>(TData data) => Ok(new JsonResponse<TData>(data));
 }
