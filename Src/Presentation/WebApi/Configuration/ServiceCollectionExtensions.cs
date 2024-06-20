@@ -11,9 +11,9 @@ internal static class ServiceCollectionExtensions
     {
         services.AddApplication();
 
-        services.AddInfra(settings.InfraSettings);
+        services.AddInfra(settings.Infra);
 
-        services.AddPresentation(settings.PresentationSettings);
+        services.AddPresentation(settings.Presentation);
     }
 
     private static void AddInfra(this IServiceCollection services, InfraSettings infraSettings)
@@ -21,19 +21,19 @@ internal static class ServiceCollectionExtensions
         
     }
 
-    private static void AddPresentation(this IServiceCollection services, PresentationSettings settings)
+    private static void AddPresentation(this IServiceCollection services, PresentationSettings presentationSettings)
     {
-        services.AddBackgroundServices(settings);
+        services.AddBackgroundServices(presentationSettings);
 
-        services.AddWebApi();
+        services.AddWebApi(presentationSettings.WebApi);
     }
 
-    private static void AddBackgroundServices(this IServiceCollection services, PresentationSettings settings)
+    private static void AddBackgroundServices(this IServiceCollection services, PresentationSettings presentationSettings)
     {
 
     }
 
-    private static void AddWebApi(this IServiceCollection services)
+    private static void AddWebApi(this IServiceCollection services, WebApiSettings webApiSettings)
     {
         services.AddHttpContextAccessor();
 

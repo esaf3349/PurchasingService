@@ -14,7 +14,7 @@ internal static class WebApplicationExtensions
 
         app.UseMiddleware();
 
-        app.UseCors(builder => builder.WithOrigins()
+        app.UseCors(builder => builder.WithOrigins(settings.Presentation.WebApi.AllowedOrigins.ToArray())
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials());

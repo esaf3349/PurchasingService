@@ -14,8 +14,8 @@ internal static class ConfigurationExtensions
 
         var settingsRoot = new SettingsRoot
         {
-            InfraSettings = infraSettings,
-            PresentationSettings = presentationSettings
+            Infra = infraSettings,
+            Presentation = presentationSettings
         };
 
         return settingsRoot;
@@ -30,7 +30,12 @@ internal static class ConfigurationExtensions
 
     private static PresentationSettings GetPresentationSettings(IConfigurationSection section)
     {
-        var presentationSettings = new PresentationSettings { };
+        var webApiSettings = section.GetRequiredSection("WebApi").Get<WebApiSettings>();
+
+        var presentationSettings = new PresentationSettings 
+        {
+            WebApi = webApiSettings
+        };
 
         return presentationSettings;
     }
