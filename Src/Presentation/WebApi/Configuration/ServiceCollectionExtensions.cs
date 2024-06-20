@@ -1,7 +1,9 @@
 ﻿using Application.Configuration;
+using Application.Contracts.Presentation.CurrentUser;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using System.Text.Json.Serialization;
 using WebApi.Configuration.Settings;
+using WebApi.Services.CurrentUser;
 
 namespace WebApi.Configuration;
 
@@ -51,5 +53,7 @@ internal static class ServiceCollectionExtensions
         {
             options.FallbackPolicy = options.DefaultPolicy;
         });
+
+        services.AddScoped<ICurrentUserService, CurrentUserService>();
     }
 }
