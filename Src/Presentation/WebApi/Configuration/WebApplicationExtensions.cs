@@ -13,6 +13,8 @@ internal static class WebApplicationExtensions
             app.UseSwaggerUI();
         }
 
+        app.UseSession();
+
         app.UseMiddleware();
 
         app.UseCors(builder => builder.WithOrigins(settings.Presentation.WebApi.AllowedOrigins.ToArray())

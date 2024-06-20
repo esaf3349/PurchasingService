@@ -54,6 +54,9 @@ internal static class ServiceCollectionExtensions
             options.FallbackPolicy = options.DefaultPolicy;
         });
 
+        services.AddDistributedMemoryCache();
+        services.AddSession();
+
         services.AddScoped<ICurrentUserService, CurrentUserService>();
     }
 }

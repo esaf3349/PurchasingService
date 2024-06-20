@@ -6,7 +6,7 @@ using WebApi.Common.Http;
 
 namespace WebApi.Common.Controllers;
 
-internal abstract class BaseController : Controller
+public abstract class BaseController : Controller
 {
     private const string _currentUserSessionName = "CurrentUser";
 

@@ -1,6 +1,6 @@
 ﻿namespace WebApi.Common.Http;
 
-internal sealed class JsonResponse<TData>
+public sealed class JsonResponse<TData>
 {
     public string? Message { get; init; }
     public TData? Data { get; init; }
