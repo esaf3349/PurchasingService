@@ -1,4 +1,5 @@
 ﻿using WebApi.Configuration.Settings;
+using WebApi.Middleware;
 
 namespace WebApi.Configuration;
 
@@ -30,7 +31,7 @@ internal static class WebApplicationExtensions
 
     private static void UseMiddleware(this WebApplication app)
     {
-
+        app.UseMiddleware<AppExceptionHandlingMiddleware>();
     }
 
     private static void RunStartupActions(this WebApplication app, SettingsRoot settings)
