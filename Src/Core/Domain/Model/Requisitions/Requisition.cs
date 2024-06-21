@@ -5,6 +5,7 @@ using Domain.Model.RequisitionLines;
 using Domain.Model.RequisitionLines.ValueObjects;
 using Domain.Model.Requisitions.Constants;
 using Domain.Model.Requisitions.ValueObjects;
+using Domain.Model.Users;
 
 namespace Domain.Model.Requisitions;
 
@@ -16,6 +17,7 @@ public sealed class Requisition : BaseEntity<Guid>
     public Guid SupplierId { get; private set; }
     public Guid DepartmentId { get; private set; }
     public Guid RequesterId { get; private set; }
+    public User? Requester { get; private set; }
     public DateTime DueDate { get; private set; }
 
     public ICollection<RequisitionLine> Lines { get; private set; }
@@ -42,6 +44,9 @@ public sealed class Requisition : BaseEntity<Guid>
 
         if (title.Length > TitleConstants.MaxLength)
             throw new DomainException<Requisition>($"{nameof(Title)} should not be longer than {TitleConstants.MaxLength} symbols");
+
+        if (title.Length < TitleConstants.MinLength)
+            throw new DomainException<Requisition>($"{nameof(Title)} should be at least {TitleConstants.MinLength} symbols");
 
         Title = title;
     }
