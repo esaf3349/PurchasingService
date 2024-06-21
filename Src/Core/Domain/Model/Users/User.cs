@@ -11,6 +11,7 @@ public sealed class User : BaseEntity<Guid>
     public string? FirstName { get; private set; }
     public string? LastName { get; private set; }
     public string? MiddleName { get; private set; }
+    public string? Email { get; private set; }
 
     public ICollection<Requisition> Requisitions { get; private set; }
 
@@ -43,6 +44,14 @@ public sealed class User : BaseEntity<Guid>
             throw new DomainException<User>($"{nameof(MiddleName)} should not be longer than {MiddleNameConstants.MaxLength} symbols");
 
         MiddleName = middleName;
+    }
+
+    public void SetEmail(string? email)
+    {
+        if (email?.Length > EmailConstants.MaxLength)
+            throw new DomainException<User>($"{nameof(Email)} should not be longer than {EmailConstants.MaxLength} symbols");
+
+        Email = email;
     }
 
     private void SetLogin(string login)

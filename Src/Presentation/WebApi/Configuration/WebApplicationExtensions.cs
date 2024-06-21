@@ -1,4 +1,5 @@
-﻿using WebApi.Configuration.Settings;
+﻿using Persistence.EntityFramework.Configuration;
+using WebApi.Configuration.Settings;
 using WebApi.Middleware;
 
 namespace WebApi.Configuration;
@@ -38,6 +39,10 @@ internal static class WebApplicationExtensions
 
     private static void RunStartupActions(this WebApplication app, SettingsRoot settings)
     {
-
+        using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+        {
+            if (!settings.Infra.Persistence.UseInMemoryContext)
+                serviceScope.ApplyDbMigrations();
+        }
     }
 }
