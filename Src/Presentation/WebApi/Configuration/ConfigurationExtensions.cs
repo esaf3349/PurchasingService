@@ -1,4 +1,5 @@
-﻿using WebApi.Configuration.Settings;
+﻿using Persistence.EntityFramework.Configuration;
+using WebApi.Configuration.Settings;
 
 namespace WebApi.Configuration;
 
@@ -23,7 +24,12 @@ internal static class ConfigurationExtensions
 
     private static InfraSettings GetInfraSettings(IConfigurationSection section)
     {
-        var infraSettings = new InfraSettings { };
+        var persistenceSettings = section.GetRequiredSection("Persistence").Get<PersistenceSettings>();
+
+        var infraSettings = new InfraSettings 
+        {
+            Persistence = persistenceSettings
+        };
 
         return infraSettings;
     }

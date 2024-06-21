@@ -1,6 +1,7 @@
 ﻿using Application.Configuration;
 using Application.Contracts.Presentation.CurrentUser;
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using Persistence.EntityFramework.Configuration;
 using System.Text.Json.Serialization;
 using WebApi.Configuration.Settings;
 using WebApi.Services.CurrentUser;
@@ -20,7 +21,7 @@ internal static class ServiceCollectionExtensions
 
     private static void AddInfra(this IServiceCollection services, InfraSettings infraSettings)
     {
-        
+        services.AddEfPersistence(infraSettings.Persistence);
     }
 
     private static void AddPresentation(this IServiceCollection services, PresentationSettings presentationSettings)

@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Application\Application.csproj" />
+    <ProjectReference Include="..\..\Infra\Persistence.EntityFramework\Persistence.EntityFramework.csproj" />
   </ItemGroup>
 
 </Project>

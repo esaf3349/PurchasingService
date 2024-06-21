@@ -1,6 +1,6 @@
 ﻿namespace WebApi.Configuration.Settings;
 
-internal readonly record struct PresentationSettings
+internal record PresentationSettings
 {
     public required WebApiSettings WebApi { get; init; }
 }

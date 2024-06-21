@@ -1,6 +1,8 @@
-﻿namespace WebApi.Configuration.Settings;
+﻿using Persistence.EntityFramework.Configuration;
 
-internal readonly record struct InfraSettings
+namespace WebApi.Configuration.Settings;
+
+internal record InfraSettings
 {
-
+    public required PersistenceSettings Persistence { get; init; }
 }
