@@ -1,7 +1,5 @@
-﻿using Application.Configuration;
-using Application.Contracts.Presentation.CurrentUser;
+﻿using Application.Contracts.Presentation.CurrentUser;
 using Microsoft.AspNetCore.Authentication.Negotiate;
-using Persistence.EntityFramework.Configuration;
 using System.Text.Json.Serialization;
 using WebApi.Configuration.Settings;
 using WebApi.Services.CurrentUser;
@@ -10,33 +8,7 @@ namespace WebApi.Configuration;
 
 internal static class ServiceCollectionExtensions
 {
-    public static void AddLayers(this IServiceCollection services, SettingsRoot settings)
-    {
-        services.AddApplication();
-
-        services.AddInfra(settings.Infra);
-
-        services.AddPresentation(settings.Presentation);
-    }
-
-    private static void AddInfra(this IServiceCollection services, InfraSettings infraSettings)
-    {
-        services.AddEfPersistence(infraSettings.Persistence);
-    }
-
-    private static void AddPresentation(this IServiceCollection services, PresentationSettings presentationSettings)
-    {
-        services.AddBackgroundServices(presentationSettings);
-
-        services.AddWebApi(presentationSettings.WebApi);
-    }
-
-    private static void AddBackgroundServices(this IServiceCollection services, PresentationSettings presentationSettings)
-    {
-
-    }
-
-    private static void AddWebApi(this IServiceCollection services, WebApiSettings webApiSettings)
+    public static void AddWebApi(this IServiceCollection services, WebApiSettings webApiSettings)
     {
         services.AddHttpContextAccessor();
 

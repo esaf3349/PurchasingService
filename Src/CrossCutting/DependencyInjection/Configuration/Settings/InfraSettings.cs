@@ -1,8 +1,8 @@
 ﻿using Persistence.EntityFramework.Configuration;
 
-namespace WebApi.Configuration.Settings;
+namespace DependencyInjection.Configuration.Settings;
 
-internal record InfraSettings
+public sealed record InfraSettings
 {
     public required PersistenceSettings Persistence { get; init; }
 }

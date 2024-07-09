@@ -1,30 +1,39 @@
-﻿using Persistence.EntityFramework.Configuration;
+﻿using DependencyInjection.Configuration.Settings;
+using Persistence.EntityFramework.Configuration;
 using WebApi.Configuration.Settings;
 
 namespace WebApi.Configuration;
 
 internal static class ConfigurationExtensions
 {
-    public static SettingsRoot ReadAppSettingsJson(this IConfiguration config)
+    public static SettingsRoot GetLayeredSettings(this IConfiguration config)
     {
+        var applicationSection = config.GetSection("Application");
+        var applicationSettings = applicationSection.Get<ApplicationSettings>();
+
         var infraSection = config.GetRequiredSection("Infra");
         var infraSettings = GetInfraSettings(infraSection);
 
-        var presentationSection = config.GetRequiredSection("Presentation");
-        var presentationSettings = GetPresentationSettings(presentationSection);
-
         var settingsRoot = new SettingsRoot
         {
-            Infra = infraSettings,
-            Presentation = presentationSettings
+            Application = applicationSettings,
+            Infra = infraSettings
         };
 
         return settingsRoot;
     }
 
-    private static InfraSettings GetInfraSettings(IConfigurationSection section)
+    public static WebApiSettings GetWebApiSettings(this IConfiguration config)
     {
-        var persistenceSettings = section.GetRequiredSection("Persistence").Get<PersistenceSettings>();
+        var webApiSection = config.GetRequiredSection("WebApi");
+        var webApiSettings = webApiSection.Get<WebApiSettings>();
+
+        return webApiSettings;
+    }
+
+    private static InfraSettings GetInfraSettings(IConfigurationSection infraSection)
+    {
+        var persistenceSettings = infraSection.GetRequiredSection("Persistence").Get<PersistenceSettings>();
 
         var infraSettings = new InfraSettings 
         {
@@ -32,17 +41,5 @@ internal static class ConfigurationExtensions
         };
 
         return infraSettings;
-    }
-
-    private static PresentationSettings GetPresentationSettings(IConfigurationSection section)
-    {
-        var webApiSettings = section.GetRequiredSection("WebApi").Get<WebApiSettings>();
-
-        var presentationSettings = new PresentationSettings 
-        {
-            WebApi = webApiSettings
-        };
-
-        return presentationSettings;
     }
 }

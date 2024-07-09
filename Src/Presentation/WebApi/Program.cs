@@ -1,13 +1,20 @@
 using WebApi.Configuration;
+using DependencyInjection;
+using DependencyInjection.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var settings = builder.Configuration.ReadAppSettingsJson();
+var layeredSettings = builder.Configuration.GetLayeredSettings();
+builder.Services.AddLayers(layeredSettings);
 
-builder.Services.AddLayers(settings);
+var webApiSettings = builder.Configuration.GetWebApiSettings();
+builder.Services.AddWebApi(webApiSettings);
 
 var app = builder.Build();
 
-app.UseWebApi(settings);
+app.UseWebApi(webApiSettings);
+
+using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+    serviceScope.RunStartupActions(layeredSettings.Infra);
 
 app.Run();

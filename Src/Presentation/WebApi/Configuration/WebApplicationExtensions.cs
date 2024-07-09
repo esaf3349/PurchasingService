@@ -1,4 +1,6 @@
-﻿using Persistence.EntityFramework.Configuration;
+﻿using DependencyInjection.Configuration;
+using DependencyInjection.Configuration.Settings;
+using Persistence.EntityFramework.Configuration;
 using WebApi.Configuration.Settings;
 using WebApi.Middleware;
 
@@ -6,7 +8,7 @@ namespace WebApi.Configuration;
 
 internal static class WebApplicationExtensions
 {
-    public static void UseWebApi(this WebApplication app, SettingsRoot settings)
+    public static void UseWebApi(this WebApplication app, WebApiSettings settings)
     {
         if (app.Environment.IsDevelopment())
         {
@@ -18,7 +20,7 @@ internal static class WebApplicationExtensions
 
         app.UseMiddleware();
 
-        app.UseCors(builder => builder.WithOrigins(settings.Presentation.WebApi.AllowedOrigins.ToArray())
+        app.UseCors(builder => builder.WithOrigins(settings.AllowedOrigins.ToArray())
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials());
@@ -28,21 +30,10 @@ internal static class WebApplicationExtensions
         app.UseAuthorization();
 
         app.MapControllers();
-
-        app.RunStartupActions(settings);
     }
 
     private static void UseMiddleware(this WebApplication app)
     {
         app.UseMiddleware<AppExceptionHandlingMiddleware>();
-    }
-
-    private static void RunStartupActions(this WebApplication app, SettingsRoot settings)
-    {
-        using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
-        {
-            if (!settings.Infra.Persistence.UseInMemoryContext)
-                serviceScope.ApplyDbMigrations();
-        }
     }
 }
