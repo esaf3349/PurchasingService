@@ -5,6 +5,7 @@ using Domain.Model.RequisitionLines;
 using Domain.Model.RequisitionLines.ValueObjects;
 using Domain.Model.Requisitions.Constants;
 using Domain.Model.Requisitions.ValueObjects;
+using Domain.Model.Suppliers;
 using Domain.Model.Users;
 
 namespace Domain.Model.Requisitions;
@@ -15,6 +16,7 @@ public sealed class Requisition : BaseEntity<Guid>
     public string Title { get; private set; }
     public Status Status { get; private set; }
     public Guid SupplierId { get; private set; }
+    public Supplier? Supplier { get; private set; }
     public Guid DepartmentId { get; private set; }
     public Guid RequesterId { get; private set; }
     public User? Requester { get; private set; }

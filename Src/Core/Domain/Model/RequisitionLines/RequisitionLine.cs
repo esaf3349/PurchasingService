@@ -10,7 +10,6 @@ public sealed class RequisitionLine : BaseEntity<Guid>
     public Guid RequisitionId { get; private set; }
     public Requisition? Requisition { get; private set; }
     public int OrdinalNumber { get; private set; }
-    public Guid SupplierId { get; private set; }
     public Guid GoodId { get; private set; }
     public Guid MeasureId { get; private set; }
     public decimal Quantity { get; private set; }
@@ -27,13 +26,12 @@ public sealed class RequisitionLine : BaseEntity<Guid>
 
     private RequisitionLine() { }
 
-    public RequisitionLine(Guid id, int ordinalNumber, Guid supplierId, Guid goodId, Guid measureId, decimal quantity, Price price, Guid budgetLineId, Guid warehouseId) : base(id)
+    public RequisitionLine(Guid id, int ordinalNumber, Guid goodId, Guid measureId, decimal quantity, Price price, Guid budgetLineId, Guid warehouseId) : base(id)
     {
         if (ordinalNumber < 1)
             throw new DomainException<RequisitionLine>($"{nameof(OrdinalNumber)} should be positive");
 
         OrdinalNumber = ordinalNumber;
-        SupplierId = supplierId;
         GoodId = goodId;
         MeasureId = measureId;
 
