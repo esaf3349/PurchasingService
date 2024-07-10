@@ -11,7 +11,7 @@ internal sealed class SuppliersConfig : BaseEntityConfig<Supplier, Guid>
     {
         base.Configure(builder);
 
-        builder.Property(e => e.Title).HasMaxLength(TitleConstants.MaxLength);
+        builder.Property(e => e.Name).HasMaxLength(NameConstants.MaxLength);
 
         builder.Property(e => e.Description).HasMaxLength(DescriptionContants.MaxLength);
     }

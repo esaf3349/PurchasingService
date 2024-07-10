@@ -1,6 +1,7 @@
 ﻿using Domain.Common.Entities;
 using Domain.Common.Exceptions;
 using Domain.Common.Time;
+using Domain.Model.Departments;
 using Domain.Model.RequisitionLines;
 using Domain.Model.RequisitionLines.ValueObjects;
 using Domain.Model.Requisitions.Constants;
@@ -18,6 +19,7 @@ public sealed class Requisition : BaseEntity<Guid>
     public Guid SupplierId { get; private set; }
     public Supplier? Supplier { get; private set; }
     public Guid DepartmentId { get; private set; }
+    public Department? Department { get; private set; }
     public Guid RequesterId { get; private set; }
     public User? Requester { get; private set; }
     public DateTime DueDate { get; private set; }

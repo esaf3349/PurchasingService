@@ -13,9 +13,9 @@ internal sealed class UsersConfig : BaseEntityConfig<User, Guid>
 
         builder.Property(e => e.FirstName).HasMaxLength(FirstNameConstants.MaxLength);
 
-        builder.Property(e => e.FirstName).HasMaxLength(FirstNameConstants.MaxLength);
+        builder.Property(e => e.LastName).HasMaxLength(LastNameConstants.MaxLength);
 
-        builder.Property(e => e.FirstName).HasMaxLength(FirstNameConstants.MaxLength);
+        builder.Property(e => e.MiddleName).HasMaxLength(MiddleNameConstants.MaxLength);
 
         builder.Property(e => e.Email).HasMaxLength(EmailConstants.MaxLength);
     }

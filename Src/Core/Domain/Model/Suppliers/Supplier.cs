@@ -7,29 +7,29 @@ namespace Domain.Model.Suppliers;
 
 public sealed class Supplier : BaseEntity<Guid>
 {
-    public string Title { get; private set; }
+    public string Name { get; private set; }
     public string? Description { get; private set; }
 
     public ICollection<Requisition> Requisitions { get; private set; }
 
     private Supplier() { }
 
-    public Supplier(Guid id, string title, string? description) : base(id)
+    public Supplier(Guid id, string name, string? description) : base(id)
     {
         Id = id;
-        SetTitle(title);
+        SetName(name);
         SetDescription(description);
     }
 
-    public void SetTitle(string title)
+    public void SetName(string name)
     {
-        if (title.Length > TitleConstants.MaxLength)
-            throw new DomainException<Supplier>($"{nameof(Title)} should not be longer than {TitleConstants.MaxLength} symbols");
+        if (name.Length > NameConstants.MaxLength)
+            throw new DomainException<Supplier>($"{nameof(Name)} should not be longer than {NameConstants.MaxLength} symbols");
 
-        if (title.Length < TitleConstants.MinLength)
-            throw new DomainException<Supplier>($"{nameof(Title)} should be at least {TitleConstants.MinLength} symbols");
+        if (name.Length < NameConstants.MinLength)
+            throw new DomainException<Supplier>($"{nameof(Name)} should be at least {NameConstants.MinLength} symbols");
 
-        Title = title;
+        Name = name;
     }
 
     public void SetDescription(string? description)
