@@ -1,5 +1,6 @@
 ﻿using Application.Contracts.Infra.Persistence;
 using Domain.Model.Departments;
+using Domain.Model.Goods;
 using Domain.Model.Suppliers;
 using Domain.Model.Users;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ namespace Persistence.EntityFramework;
 public sealed class AppDbContext : DbContext, IUnitOfWork
 {
     public DbSet<Department> Departments { get; private set; }
+    public DbSet<Good> Goods { get; private set; }
     public DbSet<Supplier> Suppliers { get; private set; }
     public DbSet<User> Users { get; private set; }
 

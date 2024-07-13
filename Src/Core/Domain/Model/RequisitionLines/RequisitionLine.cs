@@ -1,5 +1,6 @@
 ﻿using Domain.Common.Entities;
 using Domain.Common.Exceptions;
+using Domain.Model.Goods;
 using Domain.Model.RequisitionLines.ValueObjects;
 using Domain.Model.Requisitions;
 
@@ -11,6 +12,7 @@ public sealed class RequisitionLine : BaseEntity<Guid>
     public Requisition? Requisition { get; private set; }
     public int OrdinalNumber { get; private set; }
     public Guid GoodId { get; private set; }
+    public Good? Good { get; private set; }
     public Guid MeasureId { get; private set; }
     public decimal Quantity { get; private set; }
     public Guid CurrencyId { get; private set; }
