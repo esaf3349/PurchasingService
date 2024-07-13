@@ -1,4 +1,5 @@
-﻿using Domain.Model.Departments;
+﻿using Domain.Model.Currencies;
+using Domain.Model.Departments;
 using Domain.Model.Goods;
 using Domain.Model.Measures;
 using Domain.Model.Suppliers;
@@ -9,6 +10,7 @@ namespace Application.Contracts.Infra.Persistence;
 
 public interface IUnitOfWork : IDisposable
 {
+    DbSet<Currency> Currencies { get; }
     DbSet<Department> Departments { get; }
     DbSet<Good> Goods { get; }
     DbSet<Measure> Measures { get; }

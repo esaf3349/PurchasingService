@@ -1,4 +1,5 @@
 ﻿using Application.Contracts.Infra.Persistence;
+using Domain.Model.Currencies;
 using Domain.Model.Departments;
 using Domain.Model.Goods;
 using Domain.Model.Measures;
@@ -10,6 +11,7 @@ namespace Persistence.EntityFramework;
 
 public sealed class AppDbContext : DbContext, IUnitOfWork
 {
+    public DbSet<Currency> Currencies { get; private set; }
     public DbSet<Department> Departments { get; private set; }
     public DbSet<Good> Goods { get; private set; }
     public DbSet<Measure> Measures { get; private set; }
