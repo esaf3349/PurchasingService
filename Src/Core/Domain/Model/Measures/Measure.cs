@@ -16,7 +16,6 @@ public sealed class Measure : BaseEntity<Guid>
 
     public Measure(Guid id, string name, string? description) : base(id)
     {
-        Id = id;
         SetName(name);
         SetDescription(description);
     }

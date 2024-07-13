@@ -15,7 +15,6 @@ public class Department : BaseEntity<Guid>
 
     public Department(Guid id, string name) : base(id)
     {
-        Id = id;
         SetName(name);
     }
 

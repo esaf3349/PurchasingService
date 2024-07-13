@@ -16,7 +16,6 @@ public sealed class Supplier : BaseEntity<Guid>
 
     public Supplier(Guid id, string name, string? description) : base(id)
     {
-        Id = id;
         SetName(name);
         SetDescription(description);
     }
@@ -34,8 +33,8 @@ public sealed class Supplier : BaseEntity<Guid>
 
     public void SetDescription(string? description)
     {
-        if (description?.Length > DescriptionContants.MaxLength)
-            throw new DomainException<Supplier>($"{nameof(Description)} should not be longer than {DescriptionContants.MaxLength} symbols");
+        if (description?.Length > DescriptionConstants.MaxLength)
+            throw new DomainException<Supplier>($"{nameof(Description)} should not be longer than {DescriptionConstants.MaxLength} symbols");
 
         Description = description;
     }

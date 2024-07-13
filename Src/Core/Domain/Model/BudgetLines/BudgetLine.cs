@@ -16,7 +16,6 @@ public sealed class BudgetLine : BaseEntity<Guid>
 
     public BudgetLine(Guid id, string name, string? description) : base(id)
     {
-        Id = id;
         SetName(name);
         SetDescription(description);
     }

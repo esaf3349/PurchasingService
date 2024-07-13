@@ -6,6 +6,7 @@ using Domain.Model.Goods;
 using Domain.Model.Measures;
 using Domain.Model.RequisitionLines.ValueObjects;
 using Domain.Model.Requisitions;
+using Domain.Model.Warehouses;
 
 namespace Domain.Model.RequisitionLines;
 
@@ -31,6 +32,7 @@ public sealed class RequisitionLine : BaseEntity<Guid>
     public Guid BudgetLineId { get; private set; }
     public BudgetLine? BudgetLine { get; private set; }
     public Guid WarehouseId { get; private set; }
+    public Warehouse? Warehouse { get; private set; }
 
     private RequisitionLine() { }
 

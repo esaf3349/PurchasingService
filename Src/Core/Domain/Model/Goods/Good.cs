@@ -14,10 +14,10 @@ public sealed class Good : BaseEntity<Guid>
 
     private Good() { }
 
-    public Good(string name, string? description)
+    public Good(Guid id, string name, string? description) : base(id)
     {
-        Name = name;
-        Description = description;
+        SetName(name);
+        SetDescription(description);
     }
 
     public void SetName(string name)

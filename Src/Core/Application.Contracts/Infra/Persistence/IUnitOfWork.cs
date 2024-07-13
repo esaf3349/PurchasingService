@@ -5,6 +5,7 @@ using Domain.Model.Goods;
 using Domain.Model.Measures;
 using Domain.Model.Suppliers;
 using Domain.Model.Users;
+using Domain.Model.Warehouses;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Contracts.Infra.Persistence;
@@ -18,6 +19,7 @@ public interface IUnitOfWork : IDisposable
     DbSet<Measure> Measures { get; }
     DbSet<Supplier> Suppliers { get; }
     DbSet<User> Users { get; }
+    DbSet<Warehouse> Warehouses { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

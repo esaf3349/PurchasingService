@@ -13,9 +13,8 @@ public sealed class Currency : BaseEntity<Guid>
 
     private Currency() { }
 
-    public Currency(Guid id, string code, string? description) : base(id)
+    public Currency(Guid id, string code) : base(id)
     {
-        Id = id;
         SetCode(code);
     }
 

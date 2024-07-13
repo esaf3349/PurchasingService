@@ -13,6 +13,6 @@ internal sealed class SuppliersConfig : BaseEntityConfig<Supplier, Guid>
 
         builder.Property(e => e.Name).HasMaxLength(NameConstants.MaxLength);
 
-        builder.Property(e => e.Description).HasMaxLength(DescriptionContants.MaxLength);
+        builder.Property(e => e.Description).HasMaxLength(DescriptionConstants.MaxLength);
     }
 }
