@@ -1,5 +1,6 @@
 ﻿using Domain.Common.Entities;
 using Domain.Common.Exceptions;
+using Domain.Model.BudgetLines;
 using Domain.Model.Currencies;
 using Domain.Model.Goods;
 using Domain.Model.Measures;
@@ -28,6 +29,7 @@ public sealed class RequisitionLine : BaseEntity<Guid>
     public decimal TotalVatAmount { get; private set; }
     public decimal TotalAmountWithVat { get; private set; }
     public Guid BudgetLineId { get; private set; }
+    public BudgetLine? BudgetLine { get; private set; }
     public Guid WarehouseId { get; private set; }
 
     private RequisitionLine() { }

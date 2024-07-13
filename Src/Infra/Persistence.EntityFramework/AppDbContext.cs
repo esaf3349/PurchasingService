@@ -1,4 +1,5 @@
 ﻿using Application.Contracts.Infra.Persistence;
+using Domain.Model.BudgetLines;
 using Domain.Model.Currencies;
 using Domain.Model.Departments;
 using Domain.Model.Goods;
@@ -11,6 +12,7 @@ namespace Persistence.EntityFramework;
 
 public sealed class AppDbContext : DbContext, IUnitOfWork
 {
+    public DbSet<BudgetLine> BudgetLines { get; private set; }
     public DbSet<Currency> Currencies { get; private set; }
     public DbSet<Department> Departments { get; private set; }
     public DbSet<Good> Goods { get; private set; }
