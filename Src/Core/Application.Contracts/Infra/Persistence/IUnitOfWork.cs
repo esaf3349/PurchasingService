@@ -3,6 +3,7 @@ using Domain.Model.Currencies;
 using Domain.Model.Departments;
 using Domain.Model.Goods;
 using Domain.Model.Measures;
+using Domain.Model.Requisitions;
 using Domain.Model.Suppliers;
 using Domain.Model.Users;
 using Domain.Model.Warehouses;
@@ -17,6 +18,7 @@ public interface IUnitOfWork : IDisposable
     DbSet<Department> Departments { get; }
     DbSet<Good> Goods { get; }
     DbSet<Measure> Measures { get; }
+    DbSet<Requisition> Requisitions { get; }
     DbSet<Supplier> Suppliers { get; }
     DbSet<User> Users { get; }
     DbSet<Warehouse> Warehouses { get; }
