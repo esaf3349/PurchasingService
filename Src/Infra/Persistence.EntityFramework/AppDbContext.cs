@@ -4,6 +4,7 @@ using Domain.Model.Currencies;
 using Domain.Model.Departments;
 using Domain.Model.Goods;
 using Domain.Model.Measures;
+using Domain.Model.RequisitionLines;
 using Domain.Model.Requisitions;
 using Domain.Model.Suppliers;
 using Domain.Model.Users;
@@ -20,6 +21,7 @@ public sealed class AppDbContext : DbContext, IUnitOfWork
     public DbSet<Good> Goods { get; private set; }
     public DbSet<Measure> Measures { get; private set; }
     public DbSet<Requisition> Requisitions { get; private set; }
+    public DbSet<RequisitionLine> RequisitionLines { get; private set; }
     public DbSet<Supplier> Suppliers { get; private set; }
     public DbSet<User> Users { get; private set; }
     public DbSet<Warehouse> Warehouses { get; private set; }
