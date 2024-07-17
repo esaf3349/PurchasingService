@@ -16,7 +16,7 @@ public sealed class UsersController : BaseController
     [HttpPost("create")]
     public async Task<ActionResult<JsonResponse<Unit>>> Create(string login)
     {
-        var appRequest = new CreateUserRequest { Login = login };
+        var appRequest = new CreateRequest { Login = login };
         var response = await Mediator.Send(appRequest);
 
         return Ok(response);

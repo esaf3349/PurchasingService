@@ -2,7 +2,7 @@
 
 namespace Application.Requests.Users.Create;
 
-public sealed record CreateUserRequest : IRequest<Unit>
+public sealed record CreateRequest : IRequest<Unit>
 {
     public required string Login { get; init; }
 }
