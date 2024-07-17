@@ -10,6 +10,8 @@ internal static class ServiceCollectionExtensions
 {
     public static void AddWebApi(this IServiceCollection services, WebApiSettings webApiSettings)
     {
+        var currentAssembly = typeof(ServiceCollectionExtensions).Assembly;
+
         services.AddHttpContextAccessor();
 
         services.AddControllers()
@@ -17,7 +19,7 @@ internal static class ServiceCollectionExtensions
 
         services.AddEndpointsApiExplorer();
 
-        services.AddSwaggerGen();
+        services.AddSwaggerGen(options => options.CustomSchemaIds(type => type.ToString()));
 
         services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
             .AddNegotiate();
@@ -29,6 +31,8 @@ internal static class ServiceCollectionExtensions
 
         services.AddDistributedMemoryCache();
         services.AddSession();
+
+        services.AddAutoMapper(currentAssembly);
 
         services.AddScoped<ICurrentUserService, CurrentUserService>();
     }

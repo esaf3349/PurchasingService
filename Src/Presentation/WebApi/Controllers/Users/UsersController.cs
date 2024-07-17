@@ -1,10 +1,11 @@
 ﻿using Application.Requests.Users.Create;
-using Application.Requests.Users.Get;
+using Application.Requests.Users.GetById;
 using Domain.Model.Users;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Common.Controllers;
 using WebApi.Common.Http;
+using CurrentUserDtos = Application.Contracts.Presentation.CurrentUser.Dtos;
 
 namespace WebApi.Controllers.Users;
 
@@ -22,15 +23,15 @@ public sealed class UsersController : BaseController
     }
 
     [HttpGet("current")]
-    public async Task<ActionResult<JsonResponse<string?>>> GetCurrent()
+    public async Task<ActionResult<JsonResponse<CurrentUserDtos.User?>>> GetCurrent()
     {
-        return OkJsonReponse(CurrentUserIdentityName);
+        return OkJsonReponse(CurrentUser.Details);
     }
 
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<JsonResponse<User>>> GetById(Guid id)
     {
-        var appRequest = new GetUserRequest { Id = id };
+        var appRequest = new GetByIdRequest { Id = id };
         var response = await Mediator.Send(appRequest);
 
         return OkJsonReponse(response);

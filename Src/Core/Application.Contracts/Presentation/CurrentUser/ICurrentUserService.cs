@@ -1,6 +1,8 @@
-﻿namespace Application.Contracts.Presentation.CurrentUser;
+﻿using Application.Contracts.Presentation.CurrentUser.Dtos;
+
+namespace Application.Contracts.Presentation.CurrentUser;
 
 public interface ICurrentUserService
 {
-    string? IdentityName { get; }
+    User? Details { get; }
 }
