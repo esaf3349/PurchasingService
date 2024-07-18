@@ -12,19 +12,19 @@ namespace WebApi.Controllers.Requisitions;
 public sealed class RequisitionsController : BaseController
 {
     [HttpPost("create")]
-    public async Task<ActionResult<JsonResponse<Guid>>> Create(CreateRequest request)
+    public async Task<ActionResult<JsonResponse<Guid>>> Create(CreateRequest request, CancellationToken cancellationToken = default)
     {
-        var response = await Mediator.Send(request);
+        var response = await Mediator.Send(request, cancellationToken);
 
-        return Ok(response);
+        return OkJsonReponse(response);
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<JsonResponse<Requisition>>> GetById(Guid id)
+    public async Task<ActionResult<JsonResponse<Requisition>>> GetById(Guid id, CancellationToken cancellationToken = default)
     {
         var appRequest = new GetByIdRequest { Id = id };
-        var response = await Mediator.Send(appRequest);
+        var response = await Mediator.Send(appRequest, cancellationToken);
 
-        return Ok(response);
+        return OkJsonReponse(response);
     }
 }
