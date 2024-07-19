@@ -9,6 +9,8 @@ public static class ServiceCollectionExtensions
 {
     public static void AddEfPersistence(this IServiceCollection services, PersistenceSettings settings)
     {
+        services.AddSingleton(settings);
+
         services.AddDbContext<AppDbContext>(builder => ConfigureDbContext(builder, settings));
 
         services.TryAddScoped<IUnitOfWork, AppDbContext>();
