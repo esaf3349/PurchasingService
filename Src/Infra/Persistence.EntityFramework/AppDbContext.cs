@@ -2,6 +2,7 @@
 using Domain.Model.BudgetLines;
 using Domain.Model.Currencies;
 using Domain.Model.Departments;
+using Domain.Model.EntityChanges;
 using Domain.Model.Goods;
 using Domain.Model.Measures;
 using Domain.Model.RequisitionLines;
@@ -18,6 +19,7 @@ public sealed class AppDbContext : DbContext, IUnitOfWork
     public DbSet<BudgetLine> BudgetLines { get; private set; }
     public DbSet<Currency> Currencies { get; private set; }
     public DbSet<Department> Departments { get; private set; }
+    public DbSet<EntityChange> EntityChanges { get; private set; }
     public DbSet<Good> Goods { get; private set; }
     public DbSet<Measure> Measures { get; private set; }
     public DbSet<Requisition> Requisitions { get; private set; }

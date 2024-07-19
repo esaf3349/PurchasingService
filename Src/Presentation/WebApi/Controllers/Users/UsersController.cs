@@ -25,7 +25,7 @@ public sealed class UsersController : BaseController
     [HttpGet("current")]
     public async Task<ActionResult<JsonResponse<CurrentUserDtos.User?>>> GetCurrent()
     {
-        return OkJsonReponse(CurrentUser.Details);
+        return OkJsonResponse(CurrentUser.Details);
     }
 
     [HttpGet("{id:guid}")]
@@ -34,6 +34,6 @@ public sealed class UsersController : BaseController
         var appRequest = new GetByIdRequest { Id = id };
         var response = await Mediator.Send(appRequest);
 
-        return OkJsonReponse(response);
+        return OkJsonResponse(response);
     }
 }

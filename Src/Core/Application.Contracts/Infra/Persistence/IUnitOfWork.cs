@@ -1,6 +1,7 @@
 ﻿using Domain.Model.BudgetLines;
 using Domain.Model.Currencies;
 using Domain.Model.Departments;
+using Domain.Model.EntityChanges;
 using Domain.Model.Goods;
 using Domain.Model.Measures;
 using Domain.Model.RequisitionLines;
@@ -17,6 +18,7 @@ public interface IUnitOfWork : IDisposable
     DbSet<BudgetLine> BudgetLines { get; }
     DbSet<Currency> Currencies { get; }
     DbSet<Department> Departments { get; }
+    DbSet<EntityChange> EntityChanges { get; }
     DbSet<Good> Goods { get; }
     DbSet<Measure> Measures { get; }
     DbSet<Requisition> Requisitions { get; }

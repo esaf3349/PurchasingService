@@ -21,7 +21,7 @@ public sealed class SuppliersController : BaseController
     {
         var response = await Mediator.Send(request, cancellationToken);
 
-        return OkJsonReponse(response);
+        return OkJsonResponse(response);
     }
 
     [HttpPost("delete")]
@@ -29,7 +29,7 @@ public sealed class SuppliersController : BaseController
     {
         var response = await Mediator.Send(request, cancellationToken);
 
-        return OkJsonReponse(response);
+        return OkJsonResponse(response);
     }
 
     [HttpGet("{id:guid}")]
@@ -38,7 +38,7 @@ public sealed class SuppliersController : BaseController
         var appRequest = new GetByIdRequest { Id = id };
         var response = await Mediator.Send(appRequest, cancellationToken);
 
-        return OkJsonReponse(response);
+        return OkJsonResponse(response);
     }
 
     [HttpGet("search")]
@@ -51,7 +51,7 @@ public sealed class SuppliersController : BaseController
         };
         var response = await Mediator.Send(appRequest, cancellationToken);
 
-        return OkJsonReponse(response);
+        return OkJsonResponse(response);
     }
 
     [HttpPatch("{id:guid}/name")]
@@ -64,7 +64,7 @@ public sealed class SuppliersController : BaseController
         };
         var response = await Mediator.Send(appRequest, cancellationToken);
 
-        return OkJsonReponse(response);
+        return OkJsonResponse(response);
     }
 
     [HttpPatch("{id:guid}/description")]
@@ -77,6 +77,6 @@ public sealed class SuppliersController : BaseController
         };
         var response = await Mediator.Send(appRequest, cancellationToken);
 
-        return OkJsonReponse(response);
+        return OkJsonResponse(response);
     }
 }

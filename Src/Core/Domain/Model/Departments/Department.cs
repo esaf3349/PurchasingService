@@ -5,7 +5,7 @@ using Domain.Model.Requisitions;
 
 namespace Domain.Model.Departments;
 
-public class Department : BaseEntity<Guid>
+public sealed class Department : BaseEntity<Guid>
 {
     public string Name { get; private set; }
 

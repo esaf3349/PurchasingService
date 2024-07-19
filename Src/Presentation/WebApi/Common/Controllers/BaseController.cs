@@ -13,5 +13,5 @@ public abstract class BaseController : Controller
     private protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetRequiredService<IMediator>();
     private protected ICurrentUserService CurrentUser => _currentUser ??= HttpContext.RequestServices.GetRequiredService<ICurrentUserService>();
 
-    private protected ActionResult<JsonResponse<TData>> OkJsonReponse<TData>(TData data) => Ok(new JsonResponse<TData>(data));
+    private protected ActionResult<JsonResponse<TData>> OkJsonResponse<TData>(TData data) => Ok(new JsonResponse<TData>(data));
 }

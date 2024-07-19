@@ -1,5 +1,6 @@
 ﻿using Domain.Common.Entities;
 using Domain.Common.Exceptions;
+using Domain.Model.EntityChanges;
 using Domain.Model.Requisitions;
 using Domain.Model.Users.Constants;
 
@@ -14,6 +15,7 @@ public sealed class User : BaseEntity<Guid>
     public string? Email { get; private set; }
 
     public ICollection<Requisition> Requisitions { get; private set; }
+    public ICollection<EntityChange> EntityChanges { get; private set; }
 
     private User() { }
 

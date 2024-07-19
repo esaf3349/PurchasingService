@@ -16,7 +16,7 @@ public sealed class RequisitionsController : BaseController
     {
         var response = await Mediator.Send(request, cancellationToken);
 
-        return OkJsonReponse(response);
+        return OkJsonResponse(response);
     }
 
     [HttpGet("{id:guid}")]
@@ -25,6 +25,6 @@ public sealed class RequisitionsController : BaseController
         var appRequest = new GetByIdRequest { Id = id };
         var response = await Mediator.Send(appRequest, cancellationToken);
 
-        return OkJsonReponse(response);
+        return OkJsonResponse(response);
     }
 }
