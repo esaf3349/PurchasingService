@@ -16,11 +16,11 @@ public sealed class SetDescriptionHandler : IRequestHandler<SetDescriptionReques
 
     public async Task<Unit> Handle(SetDescriptionRequest request, CancellationToken cancellationToken = default)
     {
-        var supplier = await _uow.Suppliers.FirstOrDefaultAsync(s => s.Id == request.Id && s.IsActive);
-        if (supplier == null)
+        var persistedSupplier = await _uow.Suppliers.FirstOrDefaultAsync(s => s.Id == request.Id && s.IsActive);
+        if (persistedSupplier == null)
             throw new NotFoundException($"Supplier {request.Id} doesn't exist");
 
-        supplier.SetDescription(request.Description);
+        persistedSupplier.SetDescription(request.Description);
 
         await _uow.SaveChangesAsync(cancellationToken);
 

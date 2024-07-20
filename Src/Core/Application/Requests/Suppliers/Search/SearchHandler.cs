@@ -26,8 +26,8 @@ public sealed class SearchHandler : IRequestHandler<SearchRequest, IEnumerable<S
         if (!string.IsNullOrWhiteSpace(request.Description))
             filter = filter.And(s => s.Description.Contains(request.Description));
 
-        var suppliers = await _uow.Suppliers.Where(filter).ToArrayAsync(cancellationToken);
+        var persistedSuppliers = await _uow.Suppliers.Where(filter).ToArrayAsync(cancellationToken);
 
-        return suppliers;
+        return persistedSuppliers;
     }
 }

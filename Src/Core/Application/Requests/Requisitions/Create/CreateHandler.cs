@@ -17,20 +17,20 @@ public sealed class CreateHandler : IRequestHandler<CreateRequest, Guid>
 
     public async Task<Guid> Handle(CreateRequest request, CancellationToken cancellationToken = default)
     {
-        var supplier = await _uow.Suppliers.FirstOrDefaultAsync(s => s.Id == request.SupplierId && s.IsActive);
-        if (supplier == null)
+        var persistedSupplier = await _uow.Suppliers.FirstOrDefaultAsync(s => s.Id == request.SupplierId && s.IsActive);
+        if (persistedSupplier == null)
             throw new NotFoundException($"Supplier {request.SupplierId} doesn't exist");
 
-        var department = await _uow.Departments.FirstOrDefaultAsync(d => d.Id == request.DepartmentId && d.IsActive);
-        if (department == null)
+        var persistedDepartment = await _uow.Departments.FirstOrDefaultAsync(d => d.Id == request.DepartmentId && d.IsActive);
+        if (persistedDepartment == null)
             throw new NotFoundException($"Department {request.DepartmentId} doesn't exist");
 
-        var requisition = new Requisition(Guid.NewGuid(), request.Title, request.SupplierId, request.DepartmentId, request.DeliveryDueDate);
+        var newRequisition = new Requisition(Guid.NewGuid(), request.Title, request.SupplierId, request.DepartmentId, request.DeliveryDueDate);
 
-        _uow.Requisitions.Add(requisition);
+        _uow.Requisitions.Add(newRequisition);
 
         await _uow.SaveChangesAsync();
 
-        return requisition.Id;
+        return newRequisition.Id;
     }
 }

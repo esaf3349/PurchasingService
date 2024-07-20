@@ -16,11 +16,11 @@ public sealed class SetNameHandler : IRequestHandler<SetNameRequest, Unit>
 
     public async Task<Unit> Handle(SetNameRequest request, CancellationToken cancellationToken = default)
     {
-        var supplier = await _uow.Suppliers.FirstOrDefaultAsync(s => s.Id == request.Id && s.IsActive);
-        if (supplier == null)
+        var persistedSupplier = await _uow.Suppliers.FirstOrDefaultAsync(s => s.Id == request.Id && s.IsActive);
+        if (persistedSupplier == null)
             throw new NotFoundException($"Supplier {request.Id} doesn't exist");
 
-        supplier.SetName(request.Name);
+        persistedSupplier.SetName(request.Name);
 
         await _uow.SaveChangesAsync(cancellationToken);
 

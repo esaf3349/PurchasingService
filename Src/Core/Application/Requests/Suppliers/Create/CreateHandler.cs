@@ -15,12 +15,12 @@ public sealed class CreateHandler : IRequestHandler<CreateRequest, Guid>
 
     public async Task<Guid> Handle(CreateRequest request, CancellationToken cancellationToken = default)
     {
-        var supplier = new Supplier(Guid.NewGuid(), request.Name, request.Description);
+        var newSupplier = new Supplier(Guid.NewGuid(), request.Name, request.Description);
 
-        _uow.Suppliers.Add(supplier);
+        _uow.Suppliers.Add(newSupplier);
 
         await _uow.SaveChangesAsync(cancellationToken);
 
-        return supplier.Id;
+        return newSupplier.Id;
     }
 }

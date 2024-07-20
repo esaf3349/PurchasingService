@@ -3,6 +3,7 @@ using Domain.Common.Exceptions;
 using Domain.Model.EntityChanges;
 using Domain.Model.Requisitions;
 using Domain.Model.Users.Constants;
+using System.Text.RegularExpressions;
 
 namespace Domain.Model.Users;
 
@@ -50,6 +51,9 @@ public sealed class User : BaseEntity<Guid>
 
     public void SetEmail(string? email)
     {
+        if (!Regex.IsMatch(email, @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,4}$"))
+            throw new DomainException<User>($"{nameof(Email)} is invalid");
+
         if (email?.Length > EmailConstants.MaxLength)
             throw new DomainException<User>($"{nameof(Email)} should not be longer than {EmailConstants.MaxLength} symbols");
 

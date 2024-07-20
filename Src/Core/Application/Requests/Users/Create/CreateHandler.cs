@@ -17,13 +17,13 @@ public sealed class CreateHandler : IRequestHandler<CreateRequest, Unit>
 
     public async Task<Unit> Handle(CreateRequest request, CancellationToken cancellationToken = default)
     {
-        var existingUser = await _uow.Users.FirstOrDefaultAsync(u => u.Login == request.Login && u.IsActive);
-        if (existingUser != null)
+        var persistedUser = await _uow.Users.FirstOrDefaultAsync(u => u.Login == request.Login && u.IsActive);
+        if (persistedUser != null)
             throw new AlreadyExistsException($"User {request.Login} already exists");
 
-        var user = new User(Guid.NewGuid(), request.Login);
+        var newUser = new User(Guid.NewGuid(), request.Login);
 
-        _uow.Users.Add(user);
+        _uow.Users.Add(newUser);
 
         await _uow.SaveChangesAsync();
 

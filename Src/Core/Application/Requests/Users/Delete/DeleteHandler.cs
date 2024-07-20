@@ -3,7 +3,7 @@ using Application.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Requests.Suppliers.Delete;
+namespace Application.Requests.Users.Delete;
 
 public sealed class DeleteHandler : IRequestHandler<DeleteRequest, Unit>
 {
@@ -16,11 +16,11 @@ public sealed class DeleteHandler : IRequestHandler<DeleteRequest, Unit>
 
     public async Task<Unit> Handle(DeleteRequest request, CancellationToken cancellationToken = default)
     {
-        var persistedSupplier = await _uow.Suppliers.FirstOrDefaultAsync(s => s.Id == request.Id && s.IsActive);
-        if (persistedSupplier == null)
-            throw new NotFoundException($"Supplier {request.Id} doesn't exist");
+        var persistedUser = await _uow.Users.FirstOrDefaultAsync(s => s.Id == request.Id && s.IsActive);
+        if (persistedUser == null)
+            throw new NotFoundException($"User {request.Id} doesn't exist");
 
-        persistedSupplier.Delete();
+        persistedUser.Delete();
 
         await _uow.SaveChangesAsync(cancellationToken);
 

@@ -17,10 +17,10 @@ public sealed class GetByIdHandler : IRequestHandler<GetByIdRequest, Requisition
 
     public async Task<Requisition> Handle(GetByIdRequest request, CancellationToken cancellationToken = default)
     {
-        var requisition = await _uow.Requisitions.FirstOrDefaultAsync(u => u.Id == request.Id && u.IsActive);
-        if (requisition == null)
+        var persistedRequisition = await _uow.Requisitions.FirstOrDefaultAsync(u => u.Id == request.Id && u.IsActive);
+        if (persistedRequisition == null)
             throw new NotFoundException($"Requisition {request.Id} doesn't exist");
 
-        return requisition;
+        return persistedRequisition;
     }
 }
