@@ -5,6 +5,7 @@ using WebApi.Common.Http;
 
 namespace WebApi.Common.Controllers;
 
+[ApiController]
 public abstract class BaseController : Controller
 {
     private IMediator _mediator;

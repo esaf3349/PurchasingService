@@ -1,19 +1,18 @@
-﻿using Application.Requests.Suppliers.Create;
-using Application.Requests.Suppliers.Delete;
-using Application.Requests.Suppliers.GetById;
-using Application.Requests.Suppliers.Search;
-using Application.Requests.Suppliers.SetDescription;
-using Application.Requests.Suppliers.SetName;
-using Domain.Model.Suppliers;
+﻿using Application.Requests.Departments.Create;
+using Application.Requests.Departments.Delete;
+using Application.Requests.Departments.GetById;
+using Application.Requests.Departments.Search;
+using Application.Requests.Departments.SetName;
+using Domain.Model.Departments;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Common.Controllers;
 using WebApi.Common.Http;
 
-namespace WebApi.Controllers.Suppliers;
+namespace WebApi.Controllers.Departments;
 
-[Route("suppliers")]
-public sealed class SuppliersController : BaseController
+[Route("departments")]
+public sealed class DepartmentsController : BaseController
 {
     [HttpPost("create")]
     public async Task<ActionResult<JsonResponse<Guid>>> Create(CreateRequest request, CancellationToken cancellationToken = default)
@@ -32,7 +31,7 @@ public sealed class SuppliersController : BaseController
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<JsonResponse<Supplier>>> GetById(Guid id, CancellationToken cancellationToken = default)
+    public async Task<ActionResult<JsonResponse<Department>>> GetById(Guid id, CancellationToken cancellationToken = default)
     {
         var appRequest = new GetByIdRequest { Id = id };
         var response = await Mediator.Send(appRequest, cancellationToken);
@@ -41,13 +40,9 @@ public sealed class SuppliersController : BaseController
     }
 
     [HttpGet("search")]
-    public async Task<ActionResult<JsonResponse<IEnumerable<Supplier>>>> Search(string? name, string? description, CancellationToken cancellationToken = default)
+    public async Task<ActionResult<JsonResponse<IEnumerable<Department>>>> Search(string? name, string? description, CancellationToken cancellationToken = default)
     {
-        var appRequest = new SearchRequest
-        { 
-            Name = name, 
-            Description = description 
-        };
+        var appRequest = new SearchRequest { Name = name };
         var response = await Mediator.Send(appRequest, cancellationToken);
 
         return OkJsonResponse(response);
@@ -60,19 +55,6 @@ public sealed class SuppliersController : BaseController
         {
             Id = id,
             Name = request.Name
-        };
-        var response = await Mediator.Send(appRequest, cancellationToken);
-
-        return OkJsonResponse(response);
-    }
-
-    [HttpPatch("{id:guid}/description")]
-    public async Task<ActionResult<JsonResponse<Unit>>> SetDescription(Guid id, Dtos.SetDescriptionRequest request, CancellationToken cancellationToken = default)
-    {
-        var appRequest = new SetDescriptionRequest
-        {
-            Id = id,
-            Description = request.Description
         };
         var response = await Mediator.Send(appRequest, cancellationToken);
 

@@ -14,7 +14,6 @@ using CurrentUserDtos = Application.Contracts.Presentation.CurrentUser.Dtos;
 
 namespace WebApi.Controllers.Users;
 
-[ApiController]
 [Route("users")]
 public sealed class UsersController : BaseController
 {

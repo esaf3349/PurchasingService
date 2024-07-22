@@ -7,7 +7,6 @@ using WebApi.Common.Http;
 
 namespace WebApi.Controllers.Requisitions;
 
-[ApiController]
 [Route("requisitions")]
 public sealed class RequisitionsController : BaseController
 {
