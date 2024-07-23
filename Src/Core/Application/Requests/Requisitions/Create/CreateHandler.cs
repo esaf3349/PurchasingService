@@ -1,4 +1,5 @@
 ﻿using Application.Contracts.Infra.Persistence;
+using Application.Contracts.Presentation.CurrentUser;
 using Application.Exceptions;
 using Domain.Model.Requisitions;
 using MediatR;
@@ -9,10 +10,12 @@ namespace Application.Requests.Requisitions.Create;
 public sealed class CreateHandler : IRequestHandler<CreateRequest, Guid>
 {
     private readonly IUnitOfWork _uow;
+    private readonly ICurrentUserService _currentUser;
 
-    public CreateHandler(IUnitOfWork uow)
+    public CreateHandler(IUnitOfWork uow, ICurrentUserService currentUser)
     {
         _uow = uow;
+        _currentUser = currentUser;
     }
 
     public async Task<Guid> Handle(CreateRequest request, CancellationToken cancellationToken = default)
@@ -25,7 +28,7 @@ public sealed class CreateHandler : IRequestHandler<CreateRequest, Guid>
         if (persistedDepartment == null)
             throw new NotFoundException($"Department {request.DepartmentId} doesn't exist");
 
-        var newRequisition = new Requisition(Guid.NewGuid(), request.Title, request.SupplierId, request.DepartmentId, request.DeliveryDueDate);
+        var newRequisition = new Requisition(Guid.NewGuid(), request.Title, request.SupplierId, request.DepartmentId, _currentUser.Details.Id, request.DueDate);
 
         _uow.Requisitions.Add(newRequisition);
 

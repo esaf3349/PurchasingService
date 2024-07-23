@@ -16,7 +16,7 @@ public sealed class SetFullNameHandler : IRequestHandler<SetFullNameRequest, Uni
 
     public async Task<Unit> Handle(SetFullNameRequest request, CancellationToken cancellationToken = default)
     {
-        var persistedUser = await _uow.Users.FirstOrDefaultAsync(s => s.Id == request.Id && s.IsActive);
+        var persistedUser = await _uow.Users.FirstOrDefaultAsync(u => u.Id == request.Id && u.IsActive);
         if (persistedUser == null)
             throw new NotFoundException($"User {request.Id} doesn't exist");
 

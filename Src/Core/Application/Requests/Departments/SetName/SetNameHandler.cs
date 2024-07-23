@@ -16,7 +16,7 @@ public sealed class SetNameHandler : IRequestHandler<SetNameRequest, Unit>
 
     public async Task<Unit> Handle(SetNameRequest request, CancellationToken cancellationToken = default)
     {
-        var persistedDepartment = await _uow.Departments.FirstOrDefaultAsync(s => s.Id == request.Id && s.IsActive);
+        var persistedDepartment = await _uow.Departments.FirstOrDefaultAsync(d => d.Id == request.Id && d.IsActive);
         if (persistedDepartment == null)
             throw new NotFoundException($"Department {request.Id} doesn't exist");
 

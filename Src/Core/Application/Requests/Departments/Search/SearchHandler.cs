@@ -18,10 +18,10 @@ public sealed class SearchHandler : IRequestHandler<SearchRequest, IEnumerable<D
 
     public async Task<IEnumerable<Department>> Handle(SearchRequest request, CancellationToken cancellationToken = default)
     {
-        Expression<Func<Department, bool>> filter = s => s.IsActive;
+        Expression<Func<Department, bool>> filter = d => d.IsActive;
 
         if (!string.IsNullOrWhiteSpace(request.Name))
-            filter = filter.And(s => s.Name.Contains(request.Name));
+            filter = filter.And(d => d.Name.Contains(request.Name));
 
         var persistedDepartments = await _uow.Departments.Where(filter).ToArrayAsync(cancellationToken);
 

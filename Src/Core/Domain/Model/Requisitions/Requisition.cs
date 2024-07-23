@@ -28,15 +28,15 @@ public sealed class Requisition : BaseEntity<Guid>
 
     private Requisition() { }
 
-    public Requisition(Guid id, string title, Guid supplierId, Guid departmentId, DateTime deliveryDueDate) : base(id)
+    public Requisition(Guid id, string title, Guid supplierId, Guid departmentId, Guid requesterId, DateTime dueDate) : base(id)
     {
         Status = Status.Composing;
-        RequesterId = Guid.NewGuid();
+        RequesterId = requesterId;
 
         SetTitle(title);
         SetSupplier(supplierId);
         SetDepartment(departmentId);
-        SetDueDate(deliveryDueDate);
+        SetDueDate(dueDate);
 
         Lines = [];
     }

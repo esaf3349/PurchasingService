@@ -18,22 +18,22 @@ public sealed class SearchHandler : IRequestHandler<SearchRequest, IEnumerable<U
 
     public async Task<IEnumerable<User>> Handle(SearchRequest request, CancellationToken cancellationToken = default)
     {
-        Expression<Func<User, bool>> filter = s => s.IsActive;
+        Expression<Func<User, bool>> filter = u => u.IsActive;
 
         if (!string.IsNullOrWhiteSpace(request.Login))
-            filter = filter.And(s => s.Login.Contains(request.Login));
+            filter = filter.And(u => u.Login.Contains(request.Login));
 
         if (!string.IsNullOrWhiteSpace(request.FirstName))
-            filter = filter.And(s => s.FirstName.Contains(request.FirstName));
+            filter = filter.And(u => u.FirstName.Contains(request.FirstName));
 
         if (!string.IsNullOrWhiteSpace(request.LastName))
-            filter = filter.And(s => s.LastName.Contains(request.LastName));
+            filter = filter.And(u => u.LastName.Contains(request.LastName));
 
         if (!string.IsNullOrWhiteSpace(request.MiddleName))
-            filter = filter.And(s => s.MiddleName.Contains(request.MiddleName));
+            filter = filter.And(u => u.MiddleName.Contains(request.MiddleName));
 
         if (!string.IsNullOrWhiteSpace(request.Email))
-            filter = filter.And(s => s.Email.Contains(request.Email));
+            filter = filter.And(u => u.Email.Contains(request.Email));
 
         var persistedSuppliers = await _uow.Users.Where(filter).ToArrayAsync(cancellationToken);
 
