@@ -41,6 +41,9 @@ internal sealed class AppExceptionHandlingMiddleware
             case UnauthorizedException:
                 response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 break;
+            case ForbiddenException:
+                response.StatusCode = (int)HttpStatusCode.Forbidden;
+                break;
             case AlreadyExistsException:
             case BadRequestException:
             case IDomainException:
