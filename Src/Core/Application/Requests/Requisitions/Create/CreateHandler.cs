@@ -1,6 +1,7 @@
 ﻿using Application.Contracts.Infra.Persistence;
 using Application.Contracts.Presentation.CurrentUser;
 using Application.Exceptions;
+using Domain.Common.Guids;
 using Domain.Model.Requisitions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,7 @@ public sealed class CreateHandler : IRequestHandler<CreateRequest, Guid>
         if (persistedDepartment == null)
             throw new NotFoundException($"Department {request.DepartmentId} doesn't exist");
 
-        var newRequisition = new Requisition(Guid.NewGuid(), request.Title, request.SupplierId, request.DepartmentId, _currentUser.Details.Id, request.DueDate);
+        var newRequisition = new Requisition(AppGuid.New, request.Title, request.SupplierId, request.DepartmentId, _currentUser.Details.Id, request.DueDate);
 
         _uow.Requisitions.Add(newRequisition);
 

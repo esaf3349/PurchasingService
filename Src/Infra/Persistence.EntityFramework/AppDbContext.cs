@@ -1,6 +1,7 @@
 ﻿using Application.Contracts.Infra.Persistence;
 using Application.Contracts.Presentation.CurrentUser;
 using Domain.Common.Entities;
+using Domain.Common.Guids;
 using Domain.Model.BudgetLines;
 using Domain.Model.Currencies;
 using Domain.Model.Departments;
@@ -84,7 +85,7 @@ public sealed class AppDbContext : DbContext, IUnitOfWork
                     var oldValue = modifiedProperty.OriginalValue?.ToString();
                     var newValue = modifiedProperty.CurrentValue?.ToString();
 
-                    var entityChange = new EntityChange(Guid.NewGuid(), entityName, entityId, propertyName, oldValue, newValue, performerId);
+                    var entityChange = new EntityChange(AppGuid.New, entityName, entityId, propertyName, oldValue, newValue, performerId);
                     EntityChanges.Add(entityChange);
                 }
             }

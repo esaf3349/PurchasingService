@@ -1,4 +1,5 @@
 ﻿using Application.Contracts.Infra.Persistence;
+using Domain.Common.Guids;
 using Domain.Model.Departments;
 using MediatR;
 
@@ -15,7 +16,7 @@ public sealed class CreateHandler : IRequestHandler<CreateRequest, Guid>
 
     public async Task<Guid> Handle(CreateRequest request, CancellationToken cancellationToken = default)
     {
-        var newDepartment = new Department(Guid.NewGuid(), request.Name);
+        var newDepartment = new Department(AppGuid.New, request.Name);
 
         _uow.Departments.Add(newDepartment);
 

@@ -1,5 +1,6 @@
 ﻿using Application.Contracts.Infra.Persistence;
 using Application.Exceptions;
+using Domain.Common.Guids;
 using Domain.Model.Users;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,7 @@ public sealed class CreateHandler : IRequestHandler<CreateRequest, Unit>
         if (persistedUser != null)
             throw new AlreadyExistsException($"User {request.Login} already exists");
 
-        var newUser = new User(Guid.NewGuid(), request.Login);
+        var newUser = new User(AppGuid.New, request.Login);
 
         _uow.Users.Add(newUser);
 

@@ -1,4 +1,5 @@
 ﻿using Application.Contracts.Infra.Persistence;
+using Domain.Common.Guids;
 using Domain.Model.Suppliers;
 using MediatR;
 
@@ -15,7 +16,7 @@ public sealed class CreateHandler : IRequestHandler<CreateRequest, Guid>
 
     public async Task<Guid> Handle(CreateRequest request, CancellationToken cancellationToken = default)
     {
-        var newSupplier = new Supplier(Guid.NewGuid(), request.Name, request.Description);
+        var newSupplier = new Supplier(AppGuid.New, request.Name, request.Description);
 
         _uow.Suppliers.Add(newSupplier);
 
