@@ -1,6 +1,6 @@
-﻿using DependencyInjection.Configuration.Settings;
+﻿using Application.Configuration;
+using DependencyInjection.Configuration.Settings;
 using Persistence.EntityFramework.Configuration;
-using WebApi.Configuration.Settings;
 
 namespace WebApi.Configuration;
 

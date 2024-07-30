@@ -1,4 +1,4 @@
-﻿namespace WebApi.Configuration.Settings;
+﻿namespace WebApi.Configuration;
 
 internal record WebApiSettings
 {

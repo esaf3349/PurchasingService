@@ -1,4 +1,6 @@
-﻿namespace DependencyInjection.Configuration.Settings;
+﻿using Application.Configuration;
+
+namespace DependencyInjection.Configuration.Settings;
 
 public sealed record SettingsRoot
 {

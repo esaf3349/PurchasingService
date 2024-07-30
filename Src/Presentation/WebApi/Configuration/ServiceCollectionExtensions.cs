@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.Presentation.CurrentUser;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.Negotiate;
 using System.Text.Json.Serialization;
-using WebApi.Configuration.Settings;
 using WebApi.Services.CurrentUser;
 
 namespace WebApi.Configuration;
@@ -10,6 +10,8 @@ internal static class ServiceCollectionExtensions
 {
     public static void AddWebApi(this IServiceCollection services, WebApiSettings webApiSettings)
     {
+        new WebApiSettingsValidator().ValidateAndThrow(webApiSettings);
+
         var currentAssembly = typeof(ServiceCollectionExtensions).Assembly;
 
         services.AddHttpContextAccessor();

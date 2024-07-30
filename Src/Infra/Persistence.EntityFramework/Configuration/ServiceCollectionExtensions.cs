@@ -1,4 +1,5 @@
 ﻿using Application.Contracts.Infra.Persistence;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -9,6 +10,8 @@ public static class ServiceCollectionExtensions
 {
     public static void AddEfPersistence(this IServiceCollection services, PersistenceSettings settings)
     {
+        new PersistenceSettingsValidator().ValidateAndThrow(settings);
+
         services.AddSingleton(settings);
 
         services.AddDbContext<AppDbContext>(builder => ConfigureDbContext(builder, settings));
