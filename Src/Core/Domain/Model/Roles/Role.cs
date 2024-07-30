@@ -12,7 +12,7 @@ public sealed class Role : BaseEntity<Guid>
 
     private Role() { }
 
-    public Role(Guid id, string name, string? description, bool forSingleUser = false) : base(id)
+    public Role(Guid id, string name, string? description, bool forSingleUser) : base(id)
     {
         SetName(name);
         SetDescription(description);
