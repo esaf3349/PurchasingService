@@ -6,6 +6,7 @@ using Domain.Model.Goods;
 using Domain.Model.Measures;
 using Domain.Model.RequisitionLines;
 using Domain.Model.Requisitions;
+using Domain.Model.RolePermissions;
 using Domain.Model.Roles;
 using Domain.Model.Suppliers;
 using Domain.Model.Users;
@@ -25,6 +26,7 @@ public interface IUnitOfWork : IDisposable
     DbSet<Requisition> Requisitions { get; }
     DbSet<RequisitionLine> RequisitionLines { get; }
     DbSet<Role> Roles { get; }
+    DbSet<RolePermission> RolePermissions { get; }
     DbSet<Supplier> Suppliers { get; }
     DbSet<User> Users { get; }
     DbSet<Warehouse> Warehouses { get; }
