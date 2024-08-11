@@ -10,7 +10,7 @@ using Domain.Model.Goods;
 using Domain.Model.Measures;
 using Domain.Model.RequisitionLines;
 using Domain.Model.Requisitions;
-using Domain.Model.RolePermissions;
+using Domain.Model.Permissions;
 using Domain.Model.Roles;
 using Domain.Model.Suppliers;
 using Domain.Model.Users;
@@ -32,7 +32,7 @@ public sealed class AppDbContext : DbContext, IUnitOfWork
     public DbSet<Requisition> Requisitions { get; private set; }
     public DbSet<RequisitionLine> RequisitionLines { get; private set; }
     public DbSet<Role> Roles { get; private set; }
-    public DbSet<RolePermission> RolePermissions { get; private set; }
+    public DbSet<Permission> Permissions { get; private set; }
     public DbSet<Supplier> Suppliers { get; private set; }
     public DbSet<User> Users { get; private set; }
     public DbSet<Warehouse> Warehouses { get; private set; }

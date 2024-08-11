@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.Infra.Persistence;
 using Application.Exceptions;
 using Domain.Common.Guids;
-using Domain.Model.RolePermissions;
+using Domain.Model.Permissions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,10 +25,10 @@ public sealed class CreateHandler : IRequestHandler<CreateRequest, Guid>
         if (persistedRole == null)
             throw new NotFoundException($"Role {request.RoleId} doesn't exist");
 
-        var newPermission = new RolePermission(AppGuid.New, request.EntityPermissionFilter, request.EntityIdPermissionFilter, request.PropertyPermissionFilter, request.ActionPermissionFilter);
+        var newPermission = new Permission(AppGuid.New, request.EntityFilter, request.EntityIdFilter, request.PropertyFilter, request.ActionFilter);
 
         persistedRole.AddPermission(newPermission);
-        _uow.RolePermissions.Add(newPermission);
+        _uow.Permissions.Add(newPermission);
 
         await _uow.SaveChangesAsync(cancellationToken);
 

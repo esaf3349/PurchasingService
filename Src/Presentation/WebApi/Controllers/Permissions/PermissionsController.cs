@@ -16,10 +16,10 @@ public sealed class PermissionsController : BaseController
         var appRequest = new CreateRequest
         {
             RoleId = roleId,
-            EntityPermissionFilter = request.EntityPermissionFilter,
-            EntityIdPermissionFilter = request.EntityIdPermissionFilter,
-            PropertyPermissionFilter = request.PropertyPermissionFilter,
-            ActionPermissionFilter = request.ActionPermissionFilter
+            EntityFilter = request.EntityFilter,
+            EntityIdFilter = request.EntityIdFilter,
+            PropertyFilter = request.PropertyFilter,
+            ActionFilter = request.ActionFilter
         };
         var response = await Mediator.Send(appRequest, cancellationToken);
 

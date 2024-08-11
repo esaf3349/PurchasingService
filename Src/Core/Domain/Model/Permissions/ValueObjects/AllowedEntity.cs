@@ -1,4 +1,4 @@
-﻿namespace Domain.Model.RolePermissions.ValueObjects;
+﻿namespace Domain.Model.Permissions.ValueObjects;
 
 public enum AllowedEntity : int
 {

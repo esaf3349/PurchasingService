@@ -12,8 +12,8 @@ using Persistence.EntityFramework;
 namespace Persistence.EntityFramework.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240805183316_Create_RolePermissions")]
-    partial class Create_RolePermissions
+    [Migration("20240811182751_Create_Permissions")]
+    partial class Create_Permissions
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -214,6 +214,45 @@ namespace Persistence.EntityFramework.Migrations
                     b.ToTable("Measures");
                 });
 
+            modelBuilder.Entity("Domain.Model.Permissions.Permission", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("ActionFilter")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("EntityFilter")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EntityIdFilter")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PropertyFilter")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Permissions");
+                });
+
             modelBuilder.Entity("Domain.Model.RequisitionLines.RequisitionLine", b =>
                 {
                     b.Property<Guid>("Id")
@@ -346,45 +385,6 @@ namespace Persistence.EntityFramework.Migrations
                     b.HasIndex("SupplierId");
 
                     b.ToTable("Requisitions");
-                });
-
-            modelBuilder.Entity("Domain.Model.RolePermissions.RolePermission", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("ActionPermissionFilter")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EntityIdPermissionFilter")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int?>("EntityPermissionFilter")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("PropertyPermissionFilter")
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("RolePermissions");
                 });
 
             modelBuilder.Entity("Domain.Model.Roles.Role", b =>
@@ -528,6 +528,17 @@ namespace Persistence.EntityFramework.Migrations
                     b.Navigation("Performer");
                 });
 
+            modelBuilder.Entity("Domain.Model.Permissions.Permission", b =>
+                {
+                    b.HasOne("Domain.Model.Roles.Role", "Role")
+                        .WithMany("Permissions")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("Domain.Model.RequisitionLines.RequisitionLine", b =>
                 {
                     b.HasOne("Domain.Model.BudgetLines.BudgetLine", "BudgetLine")
@@ -604,17 +615,6 @@ namespace Persistence.EntityFramework.Migrations
                     b.Navigation("Requester");
 
                     b.Navigation("Supplier");
-                });
-
-            modelBuilder.Entity("Domain.Model.RolePermissions.RolePermission", b =>
-                {
-                    b.HasOne("Domain.Model.Roles.Role", "Role")
-                        .WithMany("Permissions")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Domain.Model.BudgetLines.BudgetLine", b =>
