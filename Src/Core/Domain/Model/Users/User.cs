@@ -2,6 +2,7 @@
 using Domain.Common.Exceptions;
 using Domain.Model.EntityChanges;
 using Domain.Model.Requisitions;
+using Domain.Model.Roles;
 using Domain.Model.Users.Constants;
 using System.Text.RegularExpressions;
 
@@ -15,8 +16,11 @@ public sealed class User : BaseEntity<Guid>
     public string? MiddleName { get; private set; }
     public string? Email { get; private set; }
 
+    private readonly HashSet<Role> _roles = [];
+
     public ICollection<Requisition> Requisitions { get; private set; }
     public ICollection<EntityChange> EntityChanges { get; private set; }
+    public ICollection<Role> Roles => _roles;
 
     private User() { }
 

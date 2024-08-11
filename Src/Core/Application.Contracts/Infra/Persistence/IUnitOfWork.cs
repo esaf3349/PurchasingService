@@ -23,10 +23,10 @@ public interface IUnitOfWork : IDisposable
     DbSet<EntityChange> EntityChanges { get; }
     DbSet<Good> Goods { get; }
     DbSet<Measure> Measures { get; }
+    DbSet<Permission> Permissions { get; }
     DbSet<Requisition> Requisitions { get; }
     DbSet<RequisitionLine> RequisitionLines { get; }
     DbSet<Role> Roles { get; }
-    DbSet<Permission> Permissions { get; }
     DbSet<Supplier> Suppliers { get; }
     DbSet<User> Users { get; }
     DbSet<Warehouse> Warehouses { get; }

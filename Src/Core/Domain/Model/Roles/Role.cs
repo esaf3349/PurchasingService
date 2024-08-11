@@ -2,6 +2,7 @@
 using Domain.Common.Exceptions;
 using Domain.Model.Permissions;
 using Domain.Model.Roles.Constants;
+using Domain.Model.Users;
 
 namespace Domain.Model.Roles;
 
@@ -9,11 +10,13 @@ public sealed class Role : BaseEntity<Guid>
 {
     public string Name { get; private set; }
     public string? Description { get; private set; }
-    public bool ForSingleUser { get; private set; }
+    public bool ForSingleUser { get; private init; }
 
     private readonly HashSet<Permission> _permissions = [];
+    private readonly HashSet<User> _users = [];
 
     public IReadOnlyCollection<Permission> Permissions => _permissions;
+    public IReadOnlyCollection<User> Users => _users;
 
     private Role() { }
 
