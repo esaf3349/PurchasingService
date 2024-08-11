@@ -11,7 +11,9 @@ public sealed class Role : BaseEntity<Guid>
     public string? Description { get; private set; }
     public bool ForSingleUser { get; private set; }
 
-    public ICollection<RolePermission> Permissions { get; private set; } = new HashSet<RolePermission>();
+    private readonly HashSet<RolePermission> _permissions = [];
+
+    public IReadOnlyCollection<RolePermission> Permissions => _permissions;
 
     private Role() { }
 
@@ -40,5 +42,17 @@ public sealed class Role : BaseEntity<Guid>
             throw new DomainException<Role>($"{nameof(Description)} should not be longer than {DescriptionContants.MaxLength} symbols");
 
         Description = description;
+    }
+
+    public void AddPermission(RolePermission permission)
+    {
+        _permissions.Add(permission);
+    }
+
+    public void RemovePermission(Guid permissionId)
+    {
+        var permission = _permissions.FirstOrDefault(p => p.Id == permissionId);
+
+        permission.Delete();
     }
 }

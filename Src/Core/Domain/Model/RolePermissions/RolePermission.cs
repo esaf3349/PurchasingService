@@ -8,16 +8,16 @@ namespace Domain.Model.RolePermissions;
 
 public sealed class RolePermission : BaseEntity<Guid>
 {
-    public Guid RoleId { get; private set; }
-    public Role? Role { get; private set; }
-    public AllowedEntity? EntityPermissionFilter { get; private set; }
-    public string? EntityIdPermissionFilter { get; private set; }
-    public string? PropertyPermissionFilter { get; private set; }
-    public AllowedAction? ActionPermissionFilter { get; private set; }
+    public Guid RoleId { get; }
+    public Role? Role { get; }
+    public AllowedEntity? EntityPermissionFilter { get; private init; }
+    public string? EntityIdPermissionFilter { get; private init; }
+    public string? PropertyPermissionFilter { get; private init; }
+    public AllowedAction? ActionPermissionFilter { get; private init; }
 
     private RolePermission() { }
 
-    public RolePermission(Guid id, Guid roleId, AllowedEntity? entityPermissionFilter, string? entityIdPermissionFilter, string? propertyPermissionFilter, AllowedAction? actionPermissionFilter) : base(id)
+    public RolePermission(Guid id, AllowedEntity? entityPermissionFilter, string? entityIdPermissionFilter, string? propertyPermissionFilter, AllowedAction? actionPermissionFilter) : base(id)
     {
         if (entityIdPermissionFilter?.Length > EntityIdPermissionFilterConstants.MaxLength)
             throw new DomainException<RolePermission>($"{nameof(EntityIdPermissionFilter)} should not be longer than {EntityIdPermissionFilterConstants.MaxLength} symbols");
@@ -34,7 +34,6 @@ public sealed class RolePermission : BaseEntity<Guid>
         if (actionPermissionFilter != null && actionPermissionFilter != AllowedAction.Read && EntityPermissionFilter == null)
             throw new DomainException<RolePermission>($"{nameof(ActionPermissionFilter)} requires {nameof(EntityPermissionFilter)}");
 
-        RoleId = roleId;
         EntityPermissionFilter = entityPermissionFilter;
         EntityIdPermissionFilter = entityIdPermissionFilter;
         PropertyPermissionFilter = propertyPermissionFilter;

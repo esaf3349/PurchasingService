@@ -29,7 +29,9 @@ public sealed class SearchHandler : IRequestHandler<SearchRequest, IEnumerable<R
         if (request.ForSingleUser != null)
             filter = filter.And(r => r.ForSingleUser == request.ForSingleUser);
 
-        var persistedRoles = await _uow.Roles.Where(filter).ToArrayAsync(cancellationToken);
+        var persistedRoles = await _uow.Roles
+            .Include(r => r.Permissions.Where(p => p.IsActive))
+            .Where(filter).ToArrayAsync(cancellationToken);
 
         return persistedRoles;
     }

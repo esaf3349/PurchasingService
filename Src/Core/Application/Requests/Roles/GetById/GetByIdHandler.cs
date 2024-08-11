@@ -17,7 +17,10 @@ public sealed class GetByIdHandler : IRequestHandler<GetByIdRequest, Role>
 
     public async Task<Role> Handle(GetByIdRequest request, CancellationToken cancellationToken = default)
     {
-        var persistedRole = await _uow.Roles.FirstOrDefaultAsync(r => r.Id == request.Id && r.IsActive);
+        var persistedRole = await _uow.Roles
+            .Include(r => r.Permissions.Where(p => p.IsActive))
+            .FirstOrDefaultAsync(r => r.Id == request.Id && r.IsActive);
+
         if (persistedRole == null)
             throw new NotFoundException($"Role {request.Id} doesn't exist");
 
