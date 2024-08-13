@@ -12,17 +12,19 @@ namespace Domain.Model.Users;
 
 public sealed class User : BaseEntity<Guid>
 {
+    private readonly HashSet<EntityChange> _entityChanges = [];
+    private readonly HashSet<Requisition> _requisitions = [];
+    private readonly HashSet<UserRole> _userRoles = [];
+
     public string Login { get; private set; }
     public string? FirstName { get; private set; }
     public string? LastName { get; private set; }
     public string? MiddleName { get; private set; }
     public string? Email { get; private set; }
 
-    private readonly HashSet<UserRole> _userRoles = [];
-
-    public ICollection<Requisition> Requisitions { get; private set; }
-    public ICollection<EntityChange> EntityChanges { get; private set; }
-    public ICollection<UserRole> UserRoles => _userRoles;
+    public IReadOnlyCollection<EntityChange> EntityChanges => _entityChanges;
+    public IReadOnlyCollection<Requisition> Requisitions => _requisitions;
+    public IReadOnlyCollection<UserRole> UserRoles => _userRoles;
 
     private User() { }
 

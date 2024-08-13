@@ -7,10 +7,12 @@ namespace Domain.Model.Measures;
 
 public sealed class Measure : BaseEntity<Guid>
 {
+    private readonly HashSet<RequisitionLine> _requisitionLines = [];
+
     public string Name { get; private set; }
     public string? Description { get; private set; }
 
-    public ICollection<RequisitionLine> RequisitionLines { get; private set; }
+    public IReadOnlyCollection<RequisitionLine> RequisitionLines => _requisitionLines;
 
     private Measure() { }
 

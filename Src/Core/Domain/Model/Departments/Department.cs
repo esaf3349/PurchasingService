@@ -7,9 +7,11 @@ namespace Domain.Model.Departments;
 
 public sealed class Department : BaseEntity<Guid>
 {
+    private readonly HashSet<Requisition> _requisitions = [];
+
     public string Name { get; private set; }
 
-    public ICollection<Requisition> Requisitions { get; private set; }
+    public IReadOnlyCollection<Requisition> Requisitions => _requisitions;
 
     private Department() { }
 

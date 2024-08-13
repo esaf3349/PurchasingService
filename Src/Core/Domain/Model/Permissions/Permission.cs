@@ -8,7 +8,7 @@ namespace Domain.Model.Permissions;
 
 public sealed class Permission : BaseEntity<Guid>
 {
-    public Guid RoleId { get; }
+    public Guid RoleId { get; private init; }
     public Role? Role { get; }
     public AllowedEntity? EntityFilter { get; private init; }
     public string? EntityIdFilter { get; private init; }

@@ -7,10 +7,12 @@ namespace Domain.Model.Suppliers;
 
 public sealed class Supplier : BaseEntity<Guid>
 {
+    private readonly HashSet<Requisition> _requisitions = [];
+
     public string Name { get; private set; }
     public string? Description { get; private set; }
 
-    public ICollection<Requisition> Requisitions { get; private set; }
+    public IReadOnlyCollection<Requisition> Requisitions => _requisitions;
 
     private Supplier() { }
 

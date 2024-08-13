@@ -7,9 +7,11 @@ namespace Domain.Model.Currencies;
 
 public sealed class Currency : BaseEntity<Guid>
 {
+    private readonly HashSet<RequisitionLine> _requisitionLines = [];
+
     public string Code { get; private set; }
 
-    public ICollection<RequisitionLine> RequisitionLines { get; private set; }
+    public IReadOnlyCollection<RequisitionLine> RequisitionLines => _requisitionLines;
 
     private Currency() { }
 

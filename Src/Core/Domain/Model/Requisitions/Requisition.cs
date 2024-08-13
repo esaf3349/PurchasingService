@@ -13,18 +13,20 @@ namespace Domain.Model.Requisitions;
 
 public sealed class Requisition : BaseEntity<Guid>
 {
-    public int Number { get; private set; }
+    private readonly HashSet<RequisitionLine> _lines = [];
+
+    public int Number { get; private init; }
     public string Title { get; private set; }
     public Status Status { get; private set; }
     public Guid SupplierId { get; private set; }
-    public Supplier? Supplier { get; private set; }
+    public Supplier? Supplier { get; }
     public Guid DepartmentId { get; private set; }
-    public Department? Department { get; private set; }
-    public Guid RequesterId { get; private set; }
-    public User? Requester { get; private set; }
+    public Department? Department { get; }
+    public Guid RequesterId { get; private init; }
+    public User? Requester { get; }
     public DateTime DueDate { get; private set; }
 
-    public ICollection<RequisitionLine> Lines { get; private set; }
+    public IReadOnlyCollection<RequisitionLine> Lines => _lines;
 
     private Requisition() { }
 
@@ -37,8 +39,6 @@ public sealed class Requisition : BaseEntity<Guid>
         SetSupplier(supplierId);
         SetDepartment(departmentId);
         SetDueDate(dueDate);
-
-        Lines = [];
     }
 
     public void SetTitle(string title)
@@ -91,7 +91,7 @@ public sealed class Requisition : BaseEntity<Guid>
         if (line.OrdinalNumber + 1 != maxOrdinalNumber)
             throw new DomainException<Requisition>($"Could not add {nameof(RequisitionLine)}: expected {nameof(line.OrdinalNumber)} is {maxOrdinalNumber + 1}");
 
-        Lines.Add(line);
+        _lines.Add(line);
     }
 
     public void SetLinePrice(Guid lineId, decimal quantity, Price price)

@@ -8,12 +8,12 @@ namespace Domain.Model.Roles;
 
 public sealed class Role : BaseEntity<Guid>
 {
+    private readonly HashSet<Permission> _permissions = [];
+    private readonly HashSet<UserRole> _userRoles = [];
+
     public string Name { get; private set; }
     public string? Description { get; private set; }
     public bool ForSingleUser { get; private init; }
-
-    private readonly HashSet<Permission> _permissions = [];
-    private readonly HashSet<UserRole> _userRoles = [];
 
     public IReadOnlyCollection<Permission> Permissions => _permissions;
     public IReadOnlyCollection<UserRole> UserRoles => _userRoles;

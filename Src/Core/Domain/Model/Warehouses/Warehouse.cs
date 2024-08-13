@@ -7,10 +7,12 @@ namespace Domain.Model.Warehouses;
 
 public sealed class Warehouse : BaseEntity<Guid>
 {
+    private readonly HashSet<RequisitionLine> _requisitionLines = [];
+
     public string Name { get; private set; }
     public string Address { get; private set; }
 
-    public ICollection<RequisitionLine> RequisitionLines { get; private set; }
+    public IReadOnlyCollection<RequisitionLine> RequisitionLines => _requisitionLines;
 
     private Warehouse() { }
 

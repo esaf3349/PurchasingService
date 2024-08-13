@@ -12,16 +12,16 @@ namespace Domain.Model.RequisitionLines;
 
 public sealed class RequisitionLine : BaseEntity<Guid>
 {
-    public Guid RequisitionId { get; private set; }
-    public Requisition? Requisition { get; private set; }
-    public int OrdinalNumber { get; private set; }
+    public Guid RequisitionId { get; private init; }
+    public Requisition? Requisition { get; }
+    public int OrdinalNumber { get; private init; }
     public Guid GoodId { get; private set; }
-    public Good? Good { get; private set; }
+    public Good? Good { get; }
     public Guid MeasureId { get; private set; }
-    public Measure? Measure { get; private set; }
+    public Measure? Measure { get; }
     public decimal Quantity { get; private set; }
     public Guid CurrencyId { get; private set; }
-    public Currency? Currency { get; private set; }
+    public Currency? Currency { get; }
     public decimal Amount { get; private set; }
     public decimal VatRate { get; private set; }
     public decimal VatAmount { get; private set; }
@@ -30,9 +30,9 @@ public sealed class RequisitionLine : BaseEntity<Guid>
     public decimal TotalVatAmount { get; private set; }
     public decimal TotalAmountWithVat { get; private set; }
     public Guid BudgetLineId { get; private set; }
-    public BudgetLine? BudgetLine { get; private set; }
+    public BudgetLine? BudgetLine { get; }
     public Guid WarehouseId { get; private set; }
-    public Warehouse? Warehouse { get; private set; }
+    public Warehouse? Warehouse { get; }
 
     private RequisitionLine() { }
 

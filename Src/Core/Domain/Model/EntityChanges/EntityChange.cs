@@ -7,13 +7,13 @@ namespace Domain.Model.EntityChanges;
 
 public sealed class EntityChange : BaseEntity<Guid>
 {
-    public string EntityName { get; private set; }
-    public string EntityId { get; private set; }
-    public string PropertyName { get; private set; }
-    public string? OldValue { get; private set; }
-    public string? NewValue { get; private set; }
-    public Guid? PerformerId { get; private set; }
-    public User? Performer { get; private set; }
+    public string EntityName { get; private init; }
+    public string EntityId { get; private init; }
+    public string PropertyName { get; private init; }
+    public string? OldValue { get; private init; }
+    public string? NewValue { get; private init; }
+    public Guid? PerformerId { get; private init; }
+    public User? Performer { get; }
 
     private EntityChange() { }
 
