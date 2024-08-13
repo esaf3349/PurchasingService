@@ -22,6 +22,8 @@ public sealed class SetDescriptionHandler : IRequestHandler<SetDescriptionReques
 
         persistedSupplier.SetDescription(request.Description);
 
+        _uow.Suppliers.Update(persistedSupplier);
+
         await _uow.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;

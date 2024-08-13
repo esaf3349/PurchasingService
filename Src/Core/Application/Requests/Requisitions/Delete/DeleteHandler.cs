@@ -22,6 +22,8 @@ public sealed class DeleteHandler : IRequestHandler<DeleteRequest, Unit>
 
         persistedRequisition.Delete();
 
+        _uow.Requisitions.Update(persistedRequisition);
+
         await _uow.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;

@@ -22,6 +22,8 @@ public sealed class SetNameHandler : IRequestHandler<SetNameRequest, Unit>
 
         persistedRole.SetName(request.Name);
 
+        _uow.Roles.Update(persistedRole);
+
         await _uow.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;

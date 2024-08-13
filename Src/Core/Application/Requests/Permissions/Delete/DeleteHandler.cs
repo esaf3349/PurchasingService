@@ -28,6 +28,8 @@ public sealed class DeleteHandler : IRequestHandler<DeleteRequest, Unit>
 
         persistedRole.RemovePermission(request.PermissionId);
 
+        _uow.Roles.Update(persistedRole);
+
         await _uow.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;

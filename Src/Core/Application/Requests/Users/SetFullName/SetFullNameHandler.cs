@@ -24,6 +24,8 @@ public sealed class SetFullNameHandler : IRequestHandler<SetFullNameRequest, Uni
         persistedUser.SetLastName(request.LastName);
         persistedUser.SetMiddleName(request.MiddleName);
 
+        _uow.Users.Update(persistedUser);
+
         await _uow.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;

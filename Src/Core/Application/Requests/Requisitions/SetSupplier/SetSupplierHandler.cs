@@ -26,6 +26,8 @@ public sealed class SetSupplierHandler : IRequestHandler<SetSupplierRequest, Uni
 
         persistedRequisition.SetSupplier(request.SupplierId);
 
+        _uow.Requisitions.Update(persistedRequisition);
+
         await _uow.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;

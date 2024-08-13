@@ -22,6 +22,8 @@ public sealed class SetEmailHandler : IRequestHandler<SetEmailRequest, Unit>
 
         persistedUser.SetEmail(request.Email);
 
+        _uow.Users.Update(persistedUser);
+
         await _uow.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;

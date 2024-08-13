@@ -26,6 +26,8 @@ public sealed class SetDepartmentHandler : IRequestHandler<SetDepartmentRequest,
 
         persistedRequisition.SetDepartment(request.DepartmentId);
 
+        _uow.Requisitions.Update(persistedRequisition);
+
         await _uow.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;

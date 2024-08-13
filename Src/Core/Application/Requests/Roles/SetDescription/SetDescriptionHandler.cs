@@ -22,6 +22,8 @@ public sealed class SetDescriptionHandler : IRequestHandler<SetDescriptionReques
 
         persistedRole.SetDescription(request.Description);
 
+        _uow.Roles.Update(persistedRole);
+
         await _uow.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;

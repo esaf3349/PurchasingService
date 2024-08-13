@@ -22,6 +22,8 @@ public sealed class SetNameHandler : IRequestHandler<SetNameRequest, Unit>
 
         persistedDepartment.SetName(request.Name);
 
+        _uow.Departments.Update(persistedDepartment);
+
         await _uow.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;

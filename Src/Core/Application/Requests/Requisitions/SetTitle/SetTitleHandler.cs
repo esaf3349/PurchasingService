@@ -22,6 +22,8 @@ public sealed class SetTitleHandler : IRequestHandler<SetTitleRequest, Unit>
 
         persistedRequisition.SetTitle(request.Title);
 
+        _uow.Requisitions.Update(persistedRequisition);
+
         await _uow.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;

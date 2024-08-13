@@ -22,6 +22,8 @@ public sealed class SetDueDateHandler : IRequestHandler<SetDueDateRequest, Unit>
 
         persistedRequisition.SetDueDate(request.DueDate);
 
+        _uow.Requisitions.Update(persistedRequisition);
+
         await _uow.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;

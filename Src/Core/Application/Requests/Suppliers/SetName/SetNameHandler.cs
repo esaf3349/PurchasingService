@@ -22,6 +22,8 @@ public sealed class SetNameHandler : IRequestHandler<SetNameRequest, Unit>
 
         persistedSupplier.SetName(request.Name);
 
+        _uow.Suppliers.Update(persistedSupplier);
+
         await _uow.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;
