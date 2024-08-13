@@ -2,7 +2,7 @@
 using Domain.Common.Exceptions;
 using Domain.Model.Permissions;
 using Domain.Model.Roles.Constants;
-using Domain.Model.Users;
+using Domain.Model.UserRoles;
 
 namespace Domain.Model.Roles;
 
@@ -13,10 +13,10 @@ public sealed class Role : BaseEntity<Guid>
     public bool ForSingleUser { get; private init; }
 
     private readonly HashSet<Permission> _permissions = [];
-    private readonly HashSet<User> _users = [];
+    private readonly HashSet<UserRole> _userRoles = [];
 
     public IReadOnlyCollection<Permission> Permissions => _permissions;
-    public IReadOnlyCollection<User> Users => _users;
+    public IReadOnlyCollection<UserRole> UserRoles => _userRoles;
 
     private Role() { }
 
@@ -55,6 +55,8 @@ public sealed class Role : BaseEntity<Guid>
     public void RemovePermission(Guid permissionId)
     {
         var permission = _permissions.FirstOrDefault(p => p.Id == permissionId);
+        if (permission == null)
+            throw new DomainException<Role>($"Permission {permissionId} doesn't exist");
 
         permission.Delete();
     }

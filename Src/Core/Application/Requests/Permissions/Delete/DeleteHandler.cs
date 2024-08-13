@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Requests.Permissions.Delete;
 
-public sealed class DeletePermissionHandler : IRequestHandler<DeleteRequest, Unit>
+public sealed class DeleteHandler : IRequestHandler<DeleteRequest, Unit>
 {
     private readonly IUnitOfWork _uow;
 
-    public DeletePermissionHandler(IUnitOfWork uow)
+    public DeleteHandler(IUnitOfWork uow)
     {
         _uow = uow;
     }

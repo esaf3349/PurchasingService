@@ -12,7 +12,7 @@ using Persistence.EntityFramework;
 namespace Persistence.EntityFramework.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240811192745_Create_UserRoles")]
+    [Migration("20240813202428_Create_UserRoles")]
     partial class Create_UserRoles
     {
         /// <inheritdoc />
@@ -650,13 +650,13 @@ namespace Persistence.EntityFramework.Migrations
             modelBuilder.Entity("Domain.Model.UserRoles.UserRole", b =>
                 {
                     b.HasOne("Domain.Model.Roles.Role", "Role")
-                        .WithMany()
+                        .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Domain.Model.Users.User", "User")
-                        .WithMany()
+                        .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -699,6 +699,8 @@ namespace Persistence.EntityFramework.Migrations
             modelBuilder.Entity("Domain.Model.Roles.Role", b =>
                 {
                     b.Navigation("Permissions");
+
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("Domain.Model.Suppliers.Supplier", b =>
@@ -711,6 +713,8 @@ namespace Persistence.EntityFramework.Migrations
                     b.Navigation("EntityChanges");
 
                     b.Navigation("Requisitions");
+
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("Domain.Model.Warehouses.Warehouse", b =>

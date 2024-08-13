@@ -35,7 +35,10 @@ public sealed class SearchHandler : IRequestHandler<SearchRequest, IEnumerable<U
         if (!string.IsNullOrWhiteSpace(request.Email))
             filter = filter.And(u => u.Email.Contains(request.Email));
 
-        var persistedSuppliers = await _uow.Users.Where(filter).ToArrayAsync(cancellationToken);
+        var persistedSuppliers = await _uow.Users
+            .Include(u => u.UserRoles.Where(r => r.IsActive))
+            .Where(filter)
+            .ToArrayAsync(cancellationToken);
 
         return persistedSuppliers;
     }

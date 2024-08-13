@@ -36,7 +36,7 @@ public sealed class AppDbContext : DbContext, IUnitOfWork
     public DbSet<Role> Roles { get; private set; }
     public DbSet<Supplier> Suppliers { get; private set; }
     public DbSet<User> Users { get; private set; }
-    internal DbSet<UserRole> UserRoles { get; private set; }
+    public DbSet<UserRole> UserRoles { get; private set; }
     public DbSet<Warehouse> Warehouses { get; private set; }
 
     private readonly PersistenceSettings _settings;

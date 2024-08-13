@@ -17,7 +17,10 @@ public sealed class GetByIdHandler : IRequestHandler<GetByLoginRequest, User>
 
     public async Task<User> Handle(GetByLoginRequest request, CancellationToken cancellationToken = default)
     {
-        var persistedUser = await _uow.Users.FirstOrDefaultAsync(u => u.Login == request.Login && u.IsActive);
+        var persistedUser = await _uow.Users
+            .Include(u => u.UserRoles.Where(r => r.IsActive))
+            .FirstOrDefaultAsync(u => u.Login == request.Login && u.IsActive);
+
         if (persistedUser == null)
             throw new NotFoundException($"User {request.Login} doesn't exist");
 

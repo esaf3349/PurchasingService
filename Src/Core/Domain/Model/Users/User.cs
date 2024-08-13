@@ -1,8 +1,10 @@
 ﻿using Domain.Common.Entities;
 using Domain.Common.Exceptions;
+using Domain.Common.Guids;
 using Domain.Model.EntityChanges;
 using Domain.Model.Requisitions;
 using Domain.Model.Roles;
+using Domain.Model.UserRoles;
 using Domain.Model.Users.Constants;
 using System.Text.RegularExpressions;
 
@@ -16,11 +18,11 @@ public sealed class User : BaseEntity<Guid>
     public string? MiddleName { get; private set; }
     public string? Email { get; private set; }
 
-    private readonly HashSet<Role> _roles = [];
+    private readonly HashSet<UserRole> _userRoles = [];
 
     public ICollection<Requisition> Requisitions { get; private set; }
     public ICollection<EntityChange> EntityChanges { get; private set; }
-    public ICollection<Role> Roles => _roles;
+    public ICollection<UserRole> UserRoles => _userRoles;
 
     private User() { }
 
@@ -62,6 +64,27 @@ public sealed class User : BaseEntity<Guid>
             throw new DomainException<User>($"{nameof(Email)} should not be longer than {EmailConstants.MaxLength} symbols");
 
         Email = email;
+    }
+
+    public UserRole AddRole(Role role)
+    {
+        var existingUserRole = _userRoles.FirstOrDefault(ur => ur.RoleId == role.Id && ur.IsActive);
+        if (existingUserRole != null)
+            throw new DomainException<User>($"Role {role.Id} already exists");
+
+        var newUserRole = new UserRole(AppGuid.New, Id, role.Id);
+        _userRoles.Add(newUserRole);
+
+        return newUserRole;
+    }
+
+    public void RemoveRole(Guid roleId)
+    {
+        var userRole = _userRoles.FirstOrDefault(ur => ur.RoleId == roleId && ur.IsActive);
+        if (userRole == null)
+            throw new DomainException<User>($"Role {roleId} doesn't exist");
+
+        userRole.Delete();
     }
 
     private void SetLogin(string login)

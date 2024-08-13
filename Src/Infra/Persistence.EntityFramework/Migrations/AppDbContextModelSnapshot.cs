@@ -647,13 +647,13 @@ namespace Persistence.EntityFramework.Midgrations
             modelBuilder.Entity("Domain.Model.UserRoles.UserRole", b =>
                 {
                     b.HasOne("Domain.Model.Roles.Role", "Role")
-                        .WithMany()
+                        .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Domain.Model.Users.User", "User")
-                        .WithMany()
+                        .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -696,6 +696,8 @@ namespace Persistence.EntityFramework.Midgrations
             modelBuilder.Entity("Domain.Model.Roles.Role", b =>
                 {
                     b.Navigation("Permissions");
+
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("Domain.Model.Suppliers.Supplier", b =>
@@ -708,6 +710,8 @@ namespace Persistence.EntityFramework.Midgrations
                     b.Navigation("EntityChanges");
 
                     b.Navigation("Requisitions");
+
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("Domain.Model.Warehouses.Warehouse", b =>

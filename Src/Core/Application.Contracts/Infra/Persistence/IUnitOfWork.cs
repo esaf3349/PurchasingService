@@ -12,6 +12,7 @@ using Domain.Model.Suppliers;
 using Domain.Model.Users;
 using Domain.Model.Warehouses;
 using Microsoft.EntityFrameworkCore;
+using Domain.Model.UserRoles;
 
 namespace Application.Contracts.Infra.Persistence;
 
@@ -29,6 +30,7 @@ public interface IUnitOfWork : IDisposable
     DbSet<Role> Roles { get; }
     DbSet<Supplier> Suppliers { get; }
     DbSet<User> Users { get; }
+    DbSet<UserRole> UserRoles { get; }
     DbSet<Warehouse> Warehouses { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
