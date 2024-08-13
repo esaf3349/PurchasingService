@@ -92,7 +92,8 @@ public sealed class AppDbContext : DbContext, IUnitOfWork
                     var newValue = modifiedProperty.CurrentValue?.ToString();
 
                     var entityChange = new EntityChange(AppGuid.New, entityName, entityId, propertyName, oldValue, newValue, performerId);
-                    EntityChanges.Add(entityChange);
+
+                    await EntityChanges.AddAsync(entityChange, cancellationToken);
                 }
             }
         }

@@ -28,7 +28,8 @@ public sealed class CreateHandler : IRequestHandler<CreateRequest, Guid>
         var newPermission = new Permission(AppGuid.New, request.EntityFilter, request.EntityIdFilter, request.PropertyFilter, request.ActionFilter);
 
         persistedRole.AddPermission(newPermission);
-        _uow.Permissions.Add(newPermission);
+
+        await _uow.Permissions.AddAsync(newPermission, cancellationToken);
 
         await _uow.SaveChangesAsync(cancellationToken);
 

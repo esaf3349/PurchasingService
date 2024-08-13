@@ -28,9 +28,10 @@ public sealed class CreateHandler : IRequestHandler<CreateRequest, Unit>
             throw new NotFoundException($"Role {request.RoleId} doesn't exist");
 
         var newUserRole = persistedUser.AddRole(persistedRole);
-        await _uow.UserRoles.AddAsync(newUserRole);
 
-        await _uow.SaveChangesAsync();
+        await _uow.UserRoles.AddAsync(newUserRole, cancellationToken);
+
+        await _uow.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;
     }

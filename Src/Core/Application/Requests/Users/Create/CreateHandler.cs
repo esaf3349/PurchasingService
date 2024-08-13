@@ -24,9 +24,9 @@ public sealed class CreateHandler : IRequestHandler<CreateRequest, Unit>
 
         var newUser = new User(AppGuid.New, request.Login);
 
-        _uow.Users.Add(newUser);
+        await _uow.Users.AddAsync(newUser, cancellationToken);
 
-        await _uow.SaveChangesAsync();
+        await _uow.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;
     }

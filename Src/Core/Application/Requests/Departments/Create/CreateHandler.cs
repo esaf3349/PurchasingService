@@ -18,7 +18,7 @@ public sealed class CreateHandler : IRequestHandler<CreateRequest, Guid>
     {
         var newDepartment = new Department(AppGuid.New, request.Name);
 
-        _uow.Departments.Add(newDepartment);
+        await _uow.Departments.AddAsync(newDepartment, cancellationToken);
 
         await _uow.SaveChangesAsync(cancellationToken);
 

@@ -18,7 +18,7 @@ public sealed class CreateHandler : IRequestHandler<CreateRequest, Guid>
     {
         var newRole = new Role(AppGuid.New, request.Name, request.Description, request.ForSingleUser);
 
-        _uow.Roles.Add(newRole);
+        await _uow.Roles.AddAsync(newRole, cancellationToken);
 
         await _uow.SaveChangesAsync(cancellationToken);
 

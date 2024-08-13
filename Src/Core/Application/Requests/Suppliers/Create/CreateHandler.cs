@@ -18,7 +18,7 @@ public sealed class CreateHandler : IRequestHandler<CreateRequest, Guid>
     {
         var newSupplier = new Supplier(AppGuid.New, request.Name, request.Description);
 
-        _uow.Suppliers.Add(newSupplier);
+        await _uow.Suppliers.Add(newSupplier, cancellationToken);
 
         await _uow.SaveChangesAsync(cancellationToken);
 

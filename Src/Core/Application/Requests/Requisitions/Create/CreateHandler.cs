@@ -31,9 +31,9 @@ public sealed class CreateHandler : IRequestHandler<CreateRequest, Guid>
 
         var newRequisition = new Requisition(AppGuid.New, request.Title, request.SupplierId, request.DepartmentId, _currentUser.Details.Id, request.DueDate);
 
-        _uow.Requisitions.Add(newRequisition);
+        await _uow.Requisitions.AddAsync(newRequisition, cancellationToken);
 
-        await _uow.SaveChangesAsync();
+        await _uow.SaveChangesAsync(cancellationToken);
 
         return newRequisition.Id;
     }
