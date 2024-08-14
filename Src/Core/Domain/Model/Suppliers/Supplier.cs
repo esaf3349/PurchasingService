@@ -9,11 +9,6 @@ public sealed class Supplier : BaseEntity<Guid>
 {
     private readonly HashSet<Requisition> _requisitions = [];
 
-    public string Name { get; private set; }
-    public string? Description { get; private set; }
-
-    public IReadOnlyCollection<Requisition> Requisitions => _requisitions;
-
     private Supplier() { }
 
     public Supplier(Guid id, string name, string? description) : base(id)
@@ -21,6 +16,11 @@ public sealed class Supplier : BaseEntity<Guid>
         SetName(name);
         SetDescription(description);
     }
+
+    public string Name { get; private set; }
+    public string? Description { get; private set; }
+
+    public IReadOnlyCollection<Requisition> Requisitions => _requisitions;
 
     public void SetName(string name)
     {

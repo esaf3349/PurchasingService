@@ -11,13 +11,6 @@ public sealed class Role : BaseEntity<Guid>
     private readonly HashSet<Permission> _permissions = [];
     private readonly HashSet<UserRole> _userRoles = [];
 
-    public string Name { get; private set; }
-    public string? Description { get; private set; }
-    public bool ForSingleUser { get; private init; }
-
-    public IReadOnlyCollection<Permission> Permissions => _permissions;
-    public IReadOnlyCollection<UserRole> UserRoles => _userRoles;
-
     private Role() { }
 
     public Role(Guid id, string name, string? description, bool forSingleUser) : base(id)
@@ -27,6 +20,13 @@ public sealed class Role : BaseEntity<Guid>
 
         ForSingleUser = forSingleUser;
     }
+
+    public string Name { get; private set; }
+    public string? Description { get; private set; }
+    public bool ForSingleUser { get; private init; }
+
+    public IReadOnlyCollection<Permission> Permissions => _permissions;
+    public IReadOnlyCollection<UserRole> UserRoles => _userRoles;
 
     public void SetName(string name)
     {

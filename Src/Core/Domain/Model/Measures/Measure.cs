@@ -9,11 +9,6 @@ public sealed class Measure : BaseEntity<Guid>
 {
     private readonly HashSet<RequisitionLine> _requisitionLines = [];
 
-    public string Name { get; private set; }
-    public string? Description { get; private set; }
-
-    public IReadOnlyCollection<RequisitionLine> RequisitionLines => _requisitionLines;
-
     private Measure() { }
 
     public Measure(Guid id, string name, string? description) : base(id)
@@ -21,6 +16,11 @@ public sealed class Measure : BaseEntity<Guid>
         SetName(name);
         SetDescription(description);
     }
+
+    public string Name { get; private set; }
+    public string? Description { get; private set; }
+
+    public IReadOnlyCollection<RequisitionLine> RequisitionLines => _requisitionLines;
 
     public void SetName(string name)
     {

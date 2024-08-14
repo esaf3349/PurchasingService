@@ -9,16 +9,16 @@ public sealed class Currency : BaseEntity<Guid>
 {
     private readonly HashSet<RequisitionLine> _requisitionLines = [];
 
-    public string Code { get; private set; }
-
-    public IReadOnlyCollection<RequisitionLine> RequisitionLines => _requisitionLines;
-
     private Currency() { }
 
     public Currency(Guid id, string code) : base(id)
     {
         SetCode(code);
     }
+
+    public string Code { get; private set; }
+
+    public IReadOnlyCollection<RequisitionLine> RequisitionLines => _requisitionLines;
 
     private void SetCode(string code)
     {

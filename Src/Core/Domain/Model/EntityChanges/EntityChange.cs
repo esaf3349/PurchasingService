@@ -7,14 +7,6 @@ namespace Domain.Model.EntityChanges;
 
 public sealed class EntityChange : BaseEntity<Guid>
 {
-    public string EntityName { get; private init; }
-    public string EntityId { get; private init; }
-    public string PropertyName { get; private init; }
-    public string? OldValue { get; private init; }
-    public string? NewValue { get; private init; }
-    public Guid? PerformerId { get; private init; }
-    public User? Performer { get; }
-
     private EntityChange() { }
 
     public EntityChange(Guid id, string entityName, string entityId, string propertyName, string? oldValue, string? newValue, Guid? performerId) : base(id)
@@ -44,4 +36,12 @@ public sealed class EntityChange : BaseEntity<Guid>
         NewValue = newValue;
         PerformerId = performerId;
     }
+
+    public string EntityName { get; private init; }
+    public string EntityId { get; private init; }
+    public string PropertyName { get; private init; }
+    public string? OldValue { get; private init; }
+    public string? NewValue { get; private init; }
+    public Guid? PerformerId { get; private init; }
+    public User? Performer { get; }
 }

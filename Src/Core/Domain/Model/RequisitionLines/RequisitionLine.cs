@@ -12,6 +12,23 @@ namespace Domain.Model.RequisitionLines;
 
 public sealed class RequisitionLine : BaseEntity<Guid>
 {
+    private RequisitionLine() { }
+
+    public RequisitionLine(Guid id, int ordinalNumber, Guid goodId, Guid measureId, decimal quantity, Price price, Guid budgetLineId, Guid warehouseId) : base(id)
+    {
+        if (ordinalNumber < 1)
+            throw new DomainException<RequisitionLine>($"{nameof(OrdinalNumber)} should be positive");
+
+        OrdinalNumber = ordinalNumber;
+        GoodId = goodId;
+        MeasureId = measureId;
+
+        SetPrice(quantity, price);
+
+        BudgetLineId = budgetLineId;
+        WarehouseId = warehouseId;
+    }
+
     public Guid RequisitionId { get; private init; }
     public Requisition? Requisition { get; }
     public int OrdinalNumber { get; private init; }
@@ -33,23 +50,6 @@ public sealed class RequisitionLine : BaseEntity<Guid>
     public BudgetLine? BudgetLine { get; }
     public Guid WarehouseId { get; private set; }
     public Warehouse? Warehouse { get; }
-
-    private RequisitionLine() { }
-
-    public RequisitionLine(Guid id, int ordinalNumber, Guid goodId, Guid measureId, decimal quantity, Price price, Guid budgetLineId, Guid warehouseId) : base(id)
-    {
-        if (ordinalNumber < 1)
-            throw new DomainException<RequisitionLine>($"{nameof(OrdinalNumber)} should be positive");
-
-        OrdinalNumber = ordinalNumber;
-        GoodId = goodId;
-        MeasureId = measureId;
-
-        SetPrice(quantity, price);
-
-        BudgetLineId = budgetLineId;
-        WarehouseId = warehouseId;
-    }
 
     public void SetPrice(decimal quantity, Price price)
     {

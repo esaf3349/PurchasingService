@@ -9,16 +9,16 @@ public sealed class Department : BaseEntity<Guid>
 {
     private readonly HashSet<Requisition> _requisitions = [];
 
-    public string Name { get; private set; }
-
-    public IReadOnlyCollection<Requisition> Requisitions => _requisitions;
-
     private Department() { }
 
     public Department(Guid id, string name) : base(id)
     {
         SetName(name);
     }
+
+    public string Name { get; private set; }
+
+    public IReadOnlyCollection<Requisition> Requisitions => _requisitions;
 
     public void SetName(string name)
     {

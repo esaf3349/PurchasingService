@@ -9,11 +9,6 @@ public sealed class Warehouse : BaseEntity<Guid>
 {
     private readonly HashSet<RequisitionLine> _requisitionLines = [];
 
-    public string Name { get; private set; }
-    public string Address { get; private set; }
-
-    public IReadOnlyCollection<RequisitionLine> RequisitionLines => _requisitionLines;
-
     private Warehouse() { }
 
     public Warehouse(Guid id, string name, string address) : base(id)
@@ -21,6 +16,11 @@ public sealed class Warehouse : BaseEntity<Guid>
         SetName(name);
         SetAddress(address);
     }
+
+    public string Name { get; private set; }
+    public string Address { get; private set; }
+
+    public IReadOnlyCollection<RequisitionLine> RequisitionLines => _requisitionLines;
 
     public void SetName(string name)
     {

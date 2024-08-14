@@ -8,13 +8,6 @@ namespace Domain.Model.Permissions;
 
 public sealed class Permission : BaseEntity<Guid>
 {
-    public Guid RoleId { get; private init; }
-    public Role? Role { get; }
-    public AllowedEntity? EntityFilter { get; private init; }
-    public string? EntityIdFilter { get; private init; }
-    public string? PropertyFilter { get; private init; }
-    public AllowedAction? ActionFilter { get; private init; }
-
     private Permission() { }
 
     public Permission(Guid id, AllowedEntity? entityFilter, string? entityIdFilter, string? propertyFilter, AllowedAction? actionFilter) : base(id)
@@ -39,4 +32,11 @@ public sealed class Permission : BaseEntity<Guid>
         PropertyFilter = propertyFilter;
         ActionFilter = actionFilter;
     }
+
+    public Guid RoleId { get; private init; }
+    public Role? Role { get; }
+    public AllowedEntity? EntityFilter { get; private init; }
+    public string? EntityIdFilter { get; private init; }
+    public string? PropertyFilter { get; private init; }
+    public AllowedAction? ActionFilter { get; private init; }
 }

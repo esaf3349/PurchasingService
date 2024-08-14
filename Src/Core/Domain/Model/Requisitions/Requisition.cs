@@ -15,19 +15,6 @@ public sealed class Requisition : BaseEntity<Guid>
 {
     private readonly HashSet<RequisitionLine> _lines = [];
 
-    public int Number { get; private init; }
-    public string Title { get; private set; }
-    public Status Status { get; private set; }
-    public Guid SupplierId { get; private set; }
-    public Supplier? Supplier { get; }
-    public Guid DepartmentId { get; private set; }
-    public Department? Department { get; }
-    public Guid RequesterId { get; private init; }
-    public User? Requester { get; }
-    public DateTime DueDate { get; private set; }
-
-    public IReadOnlyCollection<RequisitionLine> Lines => _lines;
-
     private Requisition() { }
 
     public Requisition(Guid id, string title, Guid supplierId, Guid departmentId, Guid requesterId, DateTime dueDate) : base(id)
@@ -40,6 +27,19 @@ public sealed class Requisition : BaseEntity<Guid>
         SetDepartment(departmentId);
         SetDueDate(dueDate);
     }
+
+    public int Number { get; private init; }
+    public string Title { get; private set; }
+    public Status Status { get; private set; }
+    public Guid SupplierId { get; private set; }
+    public Supplier? Supplier { get; }
+    public Guid DepartmentId { get; private set; }
+    public Department? Department { get; }
+    public Guid RequesterId { get; private init; }
+    public User? Requester { get; }
+    public DateTime DueDate { get; private set; }
+
+    public IReadOnlyCollection<RequisitionLine> Lines => _lines;
 
     public void SetTitle(string title)
     {

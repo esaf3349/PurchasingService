@@ -16,6 +16,13 @@ public sealed class User : BaseEntity<Guid>
     private readonly HashSet<Requisition> _requisitions = [];
     private readonly HashSet<UserRole> _userRoles = [];
 
+    private User() { }
+
+    public User(Guid id, string login) : base(id)
+    {
+        SetLogin(login);
+    }
+
     public string Login { get; private set; }
     public string? FirstName { get; private set; }
     public string? LastName { get; private set; }
@@ -25,13 +32,6 @@ public sealed class User : BaseEntity<Guid>
     public IReadOnlyCollection<EntityChange> EntityChanges => _entityChanges;
     public IReadOnlyCollection<Requisition> Requisitions => _requisitions;
     public IReadOnlyCollection<UserRole> UserRoles => _userRoles;
-
-    private User() { }
-
-    public User(Guid id, string login) : base(id)
-    {
-        SetLogin(login);
-    }
 
     public void SetFirstName(string? firstName)
     {
