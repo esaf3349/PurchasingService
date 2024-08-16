@@ -56,7 +56,7 @@ internal sealed class AppExceptionHandlingMiddleware
 
         response.ContentType = "application/json";
 
-        var responseBody = JsonSerializer.Serialize(new JsonResponse<object>(exception.Message));
+        var responseBody = JsonSerializer.Serialize(JsonResponse<object>.Error(exception.Message));
 
         await response.WriteAsync(responseBody, cancellationToken);
     }
