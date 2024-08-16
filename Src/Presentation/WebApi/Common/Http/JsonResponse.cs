@@ -2,9 +2,6 @@
 
 public sealed class JsonResponse<TData>
 {
-    public string? Message { get; init; }
-    public TData? Data { get; init; }
-
     public JsonResponse() { }
 
     public JsonResponse(string? message)
@@ -16,4 +13,7 @@ public sealed class JsonResponse<TData>
     {
         Data = data;
     }
+
+    public string? Message { get; }
+    public TData? Data { get; }
 }

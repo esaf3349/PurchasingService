@@ -1,6 +1,8 @@
-﻿using Application.PipelineBehaviors;
+﻿using Application.Authorization.Configuration;
+using Application.PipelineBehaviors;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace Application.Configuration;
 
@@ -15,10 +17,12 @@ public static class ServiceCollectionExtensions
         services.AddAutoMapper(currentAssembly);
 
         services.AddPipelineBehaviors();
+
+        services.AddAuthorization();
     }
 
     private static void AddPipelineBehaviors(this IServiceCollection services)
     {
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehavior<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceBehavior<,>));
     }
 }
